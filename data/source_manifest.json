@@ -1,0 +1,27 @@
+[
+  {
+    "source_id": "nasa_power_daily_ag",
+    "product": "NASA POWER Daily API v2.10.3, community AG",
+    "provider": "NASA Langley Research Center (LaRC) POWER Project",
+    "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
+    "in_challenge_resources": "no comprobado (T-01)",
+    "variables": {"PRECTOTCORR": "mm/day", "T2M": "C", "T2M_MAX": "C", "T2M_MIN": "C", "TOA_SW_DWN": "MJ/m^2/day", "GWETROOT": "1 (0-1)"},
+    "internal_sources": ["MERRA2", "GEOSIT", "SYN1DEG", "FLASHFLUX", "POWER"],
+    "spatial_resolution": "meteorologia ~0.5 x 0.625 deg (MERRA-2); no a nivel de parcela",
+    "temporal_resolution": "diaria, tiempo estandar local",
+    "period_used": "2001-05-01 a 2026-10-31",
+    "points": [{"id": "itapua", "lat": -27.08, "lon": -55.65}, {"id": "altoparana", "lat": -25.79, "lon": -55.09}],
+    "fetched_utc": "2026-11-14T17:45:34Z",
+    "method": "fetch JSON sin clave -> engine.aggregateDaily (dekadas por ano agricola mayo-abril)",
+    "fill_value": -999,
+    "type": "reanalisis/modelo + productos satelitales",
+    "limitations": ["celda regional", "no observacion de estacion", "GWETROOT es salida de modelo"],
+    "ui_citation": "Datos: NASA Langley Research Center POWER Project"
+  },
+  {
+    "source_id": "fao56",
+    "product": "FAO Irrigation and Drainage Paper 56 (Allen et al., 1998)",
+    "use": "Ec. 52 Hargreaves ET0; Tabla 12 Kc",
+    "type": "bibliografia"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "rotation-lab-ai-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Servicio intermedio opcional: reescribe frases del productor para el asistente de Rotation Lab",
+  "engines": { "node": ">=20" },
+  "scripts": { "start": "node index.js" }
+}

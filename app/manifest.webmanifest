@@ -1,0 +1,31 @@
+{
+  "name": "YvyShift · The Field That Remembers",
+  "short_name": "YvyShift",
+  "description": "Memoria climática de tu zona con 25 campañas de datos de NASA: monitor, rotaciones, años difíciles e informe. Funciona sin conexión.",
+  "lang": "es",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#10261A",
+  "theme_color": "#10261A",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
