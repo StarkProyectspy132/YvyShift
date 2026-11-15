@@ -4,7 +4,7 @@
  * Solo atiende archivos de este mismo sitio. Las descargas a NASA (POWER, GIBS) pasan directo a la red.
  * IMPORTANTE: subir VERSION cada vez que se publique una versión nueva de la app.
  */
-const VERSION = 'yvy-v21';
+const VERSION = 'yvy-v22';
 // Caché aparte para la librería de la IA local: NO se borra al actualizar la app.
 // El modelo en sí lo guarda WebLLM en sus propias cachés ("webllm/..."), que tampoco se tocan.
 const IA_CACHE = 'yvy-ia-lib-0.2.88';

@@ -52,10 +52,10 @@
       whyTxt: 'Un modelo chico (Qwen 2.5, 1.500 millones de parámetros) que corre en tu dispositivo. Entiende preguntas escritas con otras palabras o en jopará y, si no hay un texto revisado, escribe una respuesta corta sobre agricultura o sobre cómo usar la app. Puede equivocarse: los números de tu zona siempre salen del cálculo. Se descarga una vez y después funciona sin internet.',
       noGpu: 'Este navegador no tiene WebGPU, que hace falta para la IA local. El asistente sigue funcionando sin IA. Prueba Chrome actualizado en Android o en una computadora.',
       weakGpu: 'IA local no disponible en este teléfono (su tarjeta gráfica es muy limitada). El asistente guiado funciona igual, sin IA y sin internet. La IA local sí anda en computadoras.',
-      retrying: function (n) { return 'Se cortó la descarga. Reintentando (' + n + ' de 3), lo ya bajado no se pierde…'; },
+      retrying: function (n) { return 'Se cortó la conexión. Reintentando (' + n + ' de 3), lo ya bajado no se pierde…'; },
       cell: function (sz) { return 'Estás con datos móviles o en ahorro de datos. La descarga pesa ' + sz + '. ¿Descargar igual? Mejor hacerlo con wifi.'; },
       yes: 'Descargar igual', no: 'Cancelar',
-      space: function (sz) { return 'Puede que no haya espacio libre suficiente (' + sz + ' necesarios). Libera espacio e intenta de nuevo.'; },
+      space: function (sz) { return 'El navegador no tiene espacio para guardar la IA local (' + sz + ' necesarios). Libera espacio en el disco, no uses una ventana de incógnito y vuelve a intentar: lo ya bajado se conserva.'; },
       loading: 'Preparando la IA local…', dl: function (p, mb) { return 'Descargando IA local: ' + p + ' %' + (mb ? ' (' + mb + ' MB)' : ''); },
       opening: function (p) { return 'Abriendo la IA local: ' + p + ' %'; },
       cancel: 'Cancelar', canceled: 'Descarga cancelada. Puedes volver a intentarlo cuando quieras.',
@@ -83,7 +83,7 @@
       retrying: function (n) { return 'The download was cut. Retrying (' + n + ' of 3); what was already downloaded is kept…'; },
       cell: function (sz) { return 'You are on mobile data or data saver. The download is ' + sz + '. Download anyway? Wi-Fi is better.'; },
       yes: 'Download anyway', no: 'Cancel',
-      space: function (sz) { return 'There may not be enough free space (' + sz + ' needed). Free some space and try again.'; },
+      space: function (sz) { return 'The browser has no room to store the local AI (' + sz + ' needed). Free some disk space, do not use a private window, and try again: what was downloaded is kept.'; },
       loading: 'Preparing the local AI…', dl: function (p, mb) { return 'Downloading local AI: ' + p + ' %' + (mb ? ' (' + mb + ' MB)' : ''); },
       opening: function (p) { return 'Opening the local AI: ' + p + ' %'; },
       cancel: 'Cancel', canceled: 'Download cancelled. You can try again whenever you want.',
@@ -171,6 +171,150 @@
   // servidores nuevos de Hugging Face y la descarga se quedaba parada en pocos por ciento.
   function appConfig(webllm) { return Object.assign({}, webllm.prebuiltAppConfig, { cacheBackend: 'indexeddb' }); }
 
+  // ---------- Descargador propio del modelo ----------
+  // WebLLM baja cada pedazo de una vez y, si el navegador no llega a guardarlo (sin espacio, conexión que se corta),
+  // después falla con "ArtifactIndexedDBCache failed to fetch". Este descargador sigue donde quedó (pedidos por rango),
+  // detecta conexiones trabadas, confirma que cada pedazo quedó guardado y deja todo donde WebLLM lo busca.
+  var STALL_MS = 45000, TRIES = 8;
+  function idbOpen(name) {
+    return new Promise(function (res, rej) {
+      var r = indexedDB.open(name, 1);
+      r.onupgradeneeded = function () { if (!r.result.objectStoreNames.contains('urls')) r.result.createObjectStore('urls', { keyPath: 'url' }); };
+      r.onsuccess = function () { res(r.result); };
+      r.onerror = function () { rej(r.error); };
+    });
+  }
+  function idbHas(db, url) {
+    return new Promise(function (res, rej) {
+      var q = db.transaction(['urls'], 'readonly').objectStore('urls').getKey(url);
+      q.onsuccess = function () { res(q.result !== undefined); };
+      q.onerror = function () { rej(q.error); };
+    });
+  }
+  // Se da por guardado solo cuando la transacción terminó (oncomplete), no cuando el pedido "salió bien".
+  function idbPut(db, url, data) {
+    return new Promise(function (res, rej) {
+      var tx = db.transaction(['urls'], 'readwrite');
+      tx.oncomplete = function () { res(); };
+      tx.onabort = tx.onerror = function () {
+        var e = tx.error || new Error('IndexedDB abort');
+        // Sin lugar en el disco (o ventana de incógnito) Chrome dice QuotaExceededError o "Failed to write blobs (IOError)".
+        if (/quota|write blobs|IOError/i.test(e.name + ' ' + e.message)) e.space = true;
+        rej(e);
+      };
+      tx.objectStore('urls').put({ url: url, data: data });
+    });
+  }
+  function getBytes(url, sig, onBytes) {
+    var chunks = [], got = 0, total = 0, n = 0;
+    function once() {
+      var ac = new AbortController(), timer = null, stop = function () { ac.abort(); };
+      sig.addEventListener('abort', stop);
+      function arm() { clearTimeout(timer); timer = setTimeout(stop, STALL_MS); }
+      arm();
+      return fetch(url, { signal: ac.signal, cache: 'no-store', headers: got ? { Range: 'bytes=' + got + '-' } : {} }).then(function (r) {
+        if (got && r.status !== 206) { onBytes(-got); chunks = []; got = 0; } // el servidor no siguió: se empieza de nuevo
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        var cr = r.headers.get('content-range'), cl = r.headers.get('content-length');
+        total = cr && /\/(\d+)$/.test(cr) ? +cr.match(/\/(\d+)$/)[1] : (cl ? got + +cl : 0);
+        if (!r.body || !r.body.getReader) return r.arrayBuffer().then(function (b) { chunks.push(new Uint8Array(b)); got += b.byteLength; onBytes(b.byteLength); });
+        var rd = r.body.getReader();
+        function pump() {
+          return rd.read().then(function (x) {
+            if (x.done) return;
+            arm(); chunks.push(x.value); got += x.value.length; onBytes(x.value.length);
+            return pump();
+          });
+        }
+        return pump();
+      }).then(function () {
+        clearTimeout(timer); sig.removeEventListener('abort', stop);
+        if (total && got < total) throw new Error('incomplete');
+      }, function (e) { clearTimeout(timer); sig.removeEventListener('abort', stop); throw e; });
+    }
+    function attempt() {
+      return once().catch(function (e) {
+        if (sig.aborted) throw cancelled();
+        if (++n >= TRIES) throw new Error('network error: ' + url.split('/').pop() + ' (' + ((e && e.message) || e) + ')');
+        if (window.console) console.warn('IA local: se reanuda ' + url.split('/').pop() + ' desde ' + got + ' bytes', e);
+        // Sin señal: se espera a que vuelva (hasta 2 minutos) en vez de abandonar la descarga.
+        return new Promise(function (res) {
+          if (navigator.onLine) { setTimeout(res, Math.min(2000 * n, 10000)); return; }
+          var t0 = setTimeout(go, 120000);
+          function go() { clearTimeout(t0); window.removeEventListener('online', go); setTimeout(res, 1500); }
+          window.addEventListener('online', go);
+        }).then(function () { if (sig.aborted) throw cancelled(); return attempt(); });
+      });
+    }
+    return attempt().then(function () {
+      var out = new Uint8Array(got), o = 0;
+      chunks.forEach(function (c) { out.set(c, o); o += c.length; });
+      return out.buffer;
+    });
+  }
+  function fetchModel(webllm, v, my, first) {
+    var rec = null, list = webllm.prebuiltAppConfig.model_list || [];
+    for (var i = 0; i < list.length; i++) if (list[i].model_id === MODELS[v]) rec = list[i];
+    if (!rec || !window.indexedDB) return Promise.resolve(); // sin datos: WebLLM descarga como antes
+    var base = rec.model.replace(/\/?$/, '/'); if (!/\/resolve\/.+\//.test(base)) base += 'resolve/main/';
+    var ac = new AbortController(), done = 0, total = 0, dbs = {};
+    stopLoad = function () { ac.abort(); };
+    var failed = false;
+    function show() {
+      if (failed || my !== run || !total) return;
+      var p = Math.min(99, Math.floor(done * 100 / total));
+      status(first ? t().dl(p, Math.round(done / 1048576) + ' / ' + Math.round(total / 1048576)) : t().opening(p), p);
+    }
+    function db(name) { return dbs[name] || (dbs[name] = idbOpen(name)); }
+    // Baja un archivo si falta; "json" se guarda ya leído, como lo espera WebLLM.
+    function one(name, url, kind, size) {
+      return db(name).then(function (d) {
+        return idbHas(d, url).then(function (has) {
+          if (has) { done += size || 0; show(); return; }
+          var before = done;
+          return getBytes(url, ac.signal, function (b) { done += b; show(); }).then(function (buf) {
+            if (my !== run) throw cancelled();
+            if (size) done = before + size;
+            var data = kind === 'json' ? JSON.parse(new TextDecoder().decode(buf)) : buf;
+            return idbPut(d, url, data);
+          });
+        });
+      });
+    }
+    function readJson(name, url) {
+      return one(name, url, 'json').then(function () { return db(name); }).then(function (d) {
+        return new Promise(function (res, rej) { var q = d.transaction(['urls'], 'readonly').objectStore('urls').get(url); q.onsuccess = function () { res(q.result && q.result.data); }; q.onerror = function () { rej(q.error); }; });
+      });
+    }
+    var cfgUrl = base + 'mlc-chat-config.json', manUrl = base + 'tensor-cache.json';
+    return one('webllm/config', cfgUrl, 'bin').then(function () {
+      return Promise.all([readJson('webllm/model', manUrl), db('webllm/config').then(function (d) {
+        return new Promise(function (res) { var q = d.transaction(['urls'], 'readonly').objectStore('urls').get(cfgUrl); q.onsuccess = function () { try { res(JSON.parse(new TextDecoder().decode(q.result.data))); } catch (e) { res({}); } }; q.onerror = function () { res({}); }; });
+      })]);
+    }).then(function (r) {
+      var man = r[0] || {}, cfg = r[1] || {}, recs = man.records || [];
+      recs.forEach(function (x) { total += x.nbytes || 0; });
+      total += 12e6; // biblioteca del modelo y tokenizador (aproximado)
+      var jobs = [];
+      if (rec.model_lib && /^https?:/.test(rec.model_lib) && !/localhost/.test(rec.model_lib)) jobs.push(function () { return one('webllm/wasm', rec.model_lib, 'bin', 0); });
+      if ((cfg.tokenizer_files || ['tokenizer.json']).indexOf('tokenizer.json') >= 0) jobs.push(function () { return one('webllm/model', base + 'tokenizer.json', 'bin', 0); });
+      recs.forEach(function (x) { jobs.push(function () { return one('webllm/model', new URL(x.dataPath, manUrl).href, 'bin', x.nbytes); }); });
+      // Tres descargas a la vez: rinde bien sin ahogar una conexión lenta.
+      var k = 0;
+      function worker() { if (failed) return Promise.resolve(); if (my !== run) return Promise.reject(cancelled()); var j = jobs[k++]; return j ? j().then(worker) : Promise.resolve(); }
+      return Promise.all([worker(), worker(), worker()]);
+    }).then(function () {
+      Object.keys(dbs).forEach(function (n) { dbs[n].then(function (d) { d.close(); }).catch(function () {}); });
+      if (my !== run) throw cancelled();
+      stopLoad = null;
+    }, function (e) {
+      Object.keys(dbs).forEach(function (n) { dbs[n].then(function (d) { d.close(); }).catch(function () {}); });
+      if (ac.signal.aborted || my !== run) throw cancelled();
+      failed = true; ac.abort(); // si un pedazo falla, se cortan las otras descargas
+      throw e;
+    });
+  }
+
   function load(v) {
     if (engine) return Promise.resolve(engine);
     if (loadingP) return loadingP;
@@ -178,12 +322,17 @@
     var my = ++run, first = !stored();
     loadingP = import(LIB).then(function (webllm) {
       if (my !== run) throw cancelled();
+      // Primero se baja el modelo con el descargador propio; después WebLLM solo lo abre desde IndexedDB.
+      return fetchModel(webllm, v, my, first).then(function () { return webllm; });
+    }).then(function (webllm) {
+      if (my !== run) throw cancelled();
       var cfg = {
         appConfig: appConfig(webllm),
         initProgressCallback: function (r) {
           if (my !== run) return; // una descarga cancelada no vuelve a escribir en pantalla
           var p = Math.round((r.progress || 0) * 100), txt = r.text || '', mb = txt.match(/(\d+)\s*MB/);
           if (/shader|webgpu/i.test(txt) || p >= 100) status(t().loading, null);
+          else if (/from cache/i.test(txt)) status(t().opening(p), p);
           else status(first ? t().dl(p, mb && mb[1]) : t().opening(p), p);
         }
       };
@@ -453,6 +602,7 @@
           function (err) {
             if (err && err.cancelled) return; // el usuario canceló: ya se mostró el aviso
             var b = $('iaToggle'); if (b) b.disabled = false;
+            if (err && err.space) { setSt(T.space(SIZE[v])); return; }
             var m = String((err && err.message) || err);
             if (window.console) console.error('IA local:', err);
             // Se muestra la causa real (corta) para poder diagnosticar; el mensaje largo solo explica qué hacer.
