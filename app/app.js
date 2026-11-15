@@ -1024,6 +1024,7 @@
         devices: '<p>Esta versión no se conecta a sensores ni a riego: no muestro datos simulados como si fueran mediciones.</p><p>En «Sensores y riego» explico qué aportaría cada dispositivo.</p>',
         thanks: '¡De nada! ¿Algo más?',
         help: '<p>Todavía entiendo frases simples. Puedo:</p><ul><li>registrar tu parcela (zona, suelo y lo que no puedes sembrar)</li><li>contarte qué pasó en tu zona con la sequía, El Niño, las heladas o el calor</li><li>comparar rotaciones y armar tu agenda</li></ul>',
+        helpAI: '<p>La IA local está lista: pregúntame con tus palabras sobre agricultura o sobre cómo usar la app. También puedo:</p><ul><li>registrar tu parcela (zona, suelo y lo que no puedes sembrar)</li><li>contarte qué pasó en tu zona con la sequía, El Niño, las heladas o el calor</li><li>comparar rotaciones y armar tu agenda</li></ul>',
         notUnderstood: '<p>No te entendí bien.</p>',
         field: '<p>En «Ver el campo» comparas dos fechas de imágenes NASA HLS de 30 m sobre tu zona, con un deslizador. Por defecto: enero de 2022, en plena sequía, frente a enero de 2024.</p>',
         acts: { compare: 'Ver la comparación', field: 'Ver el campo', agenda: 'Ver agenda y clima', parcels: 'Mis parcelas', devices: 'Sensores y riego', map: 'Elegir en el mapa' }
@@ -1086,6 +1087,7 @@
         devices: '<p>This version does not connect to sensors or irrigation: I do not show simulated data as if it were measured.</p><p>"Sensors & irrigation" explains what each device would add.</p>',
         thanks: 'You are welcome! Anything else?',
         help: '<p>I still understand simple sentences. I can:</p><ul><li>register your field (area, soil and what you cannot grow)</li><li>tell you what happened in your area with drought, El Niño, frost or heat</li><li>compare rotations and build your planner</li></ul>',
+        helpAI: '<p>The local AI is ready: ask me in your own words about farming or about how to use the app. I can also:</p><ul><li>register your field (area, soil and what you cannot grow)</li><li>tell you what happened in your area with drought, El Niño, frost or heat</li><li>compare rotations and build your planner</li></ul>',
         notUnderstood: '<p>I did not quite understand.</p>',
         field: '<p>In "Field view" you compare two dates of 30 m NASA HLS images over your area with a slider. By default: January 2022, in the middle of the drought, against January 2024.</p>',
         acts: { compare: 'See the comparison', field: 'Field view', agenda: 'Planner & climate', parcels: 'My fields', devices: 'Sensors & irrigation', map: 'Pick on the map' }
@@ -1754,7 +1756,7 @@
         case 'drought': out.push(A.water(c)); res.acts = ['compare']; break;
         case 'compare': out.push(zoneSummary()); res.acts = ['compare', 'agenda']; break;
         case 'thanks': out.push(b.thanks); break;
-        case 'help': case 'greet': out.push(b.help); res.chips = b.chipsStart; break;
+        case 'help': case 'greet': out.push(window.YvyIA && window.YvyIA.installed() && b.helpAI ? b.helpAI : b.help); res.chips = b.chipsStart; break;
         default:
           if (placeOk) { out.push(zoneSummary()); res.acts = ['compare', 'agenda']; }
           else if (prio || changed) { out.push(b.nowBest(c.name(c.rows[0].id), c.sw.wins[c.rows[0].id], c.sw.n)); res.acts = ['compare']; }
