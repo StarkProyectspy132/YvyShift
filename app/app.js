@@ -42,7 +42,7 @@
       cohText: function (o) { return 'En ' + o.n + ' períodos de 10 días con soja (' + o.ny + ' campañas), la correlación entre las dos series es <b>r = ' + o.r + '</b> (1 sería idéntico, 0 sin relación). El gráfico muestra la campaña ' + o.y + '. <b>No es una validación independiente:</b> las dos series parten de la misma lluvia de MERRA-2. Sirve para comprobar que el balance se mueve en la misma dirección que el modelo de NASA; falta contrastarlo con SMAP o con una estación.'; },
       cohRange: function (o) { return 'En esta campaña nuestro balance va de ' + o.m0 + ' % a ' + o.m1 + ' %; GWETROOT, de ' + o.g0 + ' % a ' + o.g1 + ' %.'; },
       cohStrong: 'Nuestro balance simple reacciona mucho más fuerte que el modelo de NASA: es otra razón para leer el déficit de agua como exploratorio.',
-      cohNoSoil: 'Elige un tipo de suelo para ver este control: sin suelo, el modelo no calcula agua almacenada.',
+      cohNoSoil: 'Elige un tipo de suelo para ver este control: con «solo clima» el modelo no calcula agua almacenada.',
       cohNoData: 'Esta ubicación no tiene datos de GWETROOT suficientes para el control.',
       cohAria: function (y) { return 'Gráfico de la campaña ' + y + ': agua del suelo del modelo y humedad de zona radicular de NASA POWER, por períodos de 10 días.'; },
       mapAlt: 'Mapa del sudeste de Paraguay con los puntos disponibles',
@@ -54,7 +54,7 @@
       jClose: function (d, id) { return 'La diferencia con la segunda opción (' + id + ') es de solo ' + d + ' puntos: es casi un empate y decide tu experiencia.'; },
       jFew: function (w, n) { return 'Queda primera en ' + w + ' de ' + n + ' campañas: menos de la mitad.'; },
       jSow: 'El resultado cambia si la siembra se corre 10 días: mandan tus fechas reales.',
-      jMaize: 'En D, el ciclo del maíz zafriña termina el 30 de abril porque el modelo cierra el año agrícola ahí; FAO GIEWS describe la cosecha del maíz zafriña todavía en marcha en julio y agosto. El agua y las heladas de mayo a julio de ese maíz no se cuentan.',
+      jMaize: 'Alcance del modelo: cada rotación se evalúa en un año agrícola completo, del 1 de mayo al 30 de abril. En D, el maíz zafriña se evalúa hasta el 30 de abril; su tramo final (mayo a julio, según FAO GIEWS) queda fuera de esta versión y está en la hoja de ruta. Por eso el riesgo de helada de D puede ser algo mayor que el mostrado.',
       jAlways: 'La herramienta no ve tu lote, tus máquinas, plagas y enfermedades, precios ni contratos. Eso lo saben tú y tu técnico.',
       exclNote: function (l) { return 'Fuera de la comparación por tus limitaciones: ' + l + '. Los puntajes se recalculan solo entre las que quedan.'; },
       limits: { trigo: 'Trigo', maiz: 'Maíz zafriña', avena: 'Avena negra', early: 'Soja en septiembre (siembra temprana)' },
@@ -143,7 +143,7 @@
       cohText: function (o) { return 'Over ' + o.n + ' ten-day periods with soybean (' + o.ny + ' seasons), the correlation between the two series is <b>r = ' + o.r + '</b> (1 would be identical, 0 unrelated). The chart shows the ' + o.y + ' season. <b>This is not an independent validation:</b> both series start from the same MERRA-2 rainfall. It checks that our balance moves in the same direction as NASA’s model; a comparison with SMAP or a ground station is still pending.'; },
       cohRange: function (o) { return 'In this season our balance ranges from ' + o.m0 + '% to ' + o.m1 + '%; GWETROOT, from ' + o.g0 + '% to ' + o.g1 + '%.'; },
       cohStrong: 'Our simple balance reacts much more strongly than NASA’s model: one more reason to read the water deficit as exploratory.',
-      cohNoSoil: 'Pick a soil type to see this check: without soil, the model does not compute stored water.',
+      cohNoSoil: 'Pick a soil type to see this check: with the pure climate baseline the model does not compute stored water.',
       cohNoData: 'This location does not have enough GWETROOT data for the check.',
       cohAria: function (y) { return 'Chart of the ' + y + ' season: model soil water and NASA POWER root-zone wetness, by ten-day period.'; },
       mapAlt: 'Map of southeastern Paraguay with the available points',
@@ -155,7 +155,7 @@
       jClose: function (d, id) { return 'The gap to the second option (' + id + ') is only ' + d + ' points: nearly a tie, so your experience decides.'; },
       jFew: function (w, n) { return 'It ranks first in ' + w + ' of ' + n + ' seasons: fewer than half.'; },
       jSow: 'The result changes if sowing moves by 10 days: your real dates rule.',
-      jMaize: 'In D, the second-crop maize cycle ends on 30 April because the model closes the farming year there; FAO GIEWS describes the second-crop maize harvest as still under way in July and August. Water use and frost from May to July for that maize are not counted.',
+      jMaize: 'Model scope: every rotation is evaluated over one full farming year, 1 May to 30 April. In D, second-crop maize is evaluated up to 30 April; its last stretch (May to July, per FAO GIEWS) is outside this version and is on the roadmap. So the frost risk of D may be somewhat higher than shown.',
       jAlways: 'The tool cannot see your field, your machinery, pests and diseases, prices or contracts. You and your technician know those.',
       exclNote: function (l) { return 'Left out of the comparison because of your constraints: ' + l + '. Scores are recalculated among the remaining ones only.'; },
       limits: { trigo: 'Wheat', maiz: 'Second-crop maize', avena: 'Black oat', early: 'Soybean in September (early sowing)' },
@@ -372,7 +372,7 @@
     $('scenario').innerHTML = html;
     $('scenario').value = Array.prototype.some.call($('scenario').options, function (o) { return o.value === prev; }) ? prev : 'median';
   }
-  var SOIL_EN = { none: 'No soil (climatic deficit)', arenoso: 'Sandy', franco: 'Loam', arcilloso: 'Clay' };
+  var SOIL_EN = { none: 'Pure climate baseline (ignore soil water)', arenoso: 'Sandy', franco: 'Loam', arcilloso: 'Clay' };
   var CROP_EN = { soja: 'Soybean', trigo: 'Wheat', avena: 'Black oat', maiz: 'Second-crop maize', girasol: 'Sunflower', canola: 'Canola', sorgo: 'Grain sorghum', sesamo: 'Sesame', poroto: 'Dry beans' };
   function fillSoils() {
     var prev = $('soil').value || 'arcilloso';
@@ -802,7 +802,12 @@
     var endS = end.toISOString().slice(0, 10).replace(/-/g, '');
     var url = 'https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,TOA_SW_DWN,GWETROOT&community=AG&longitude=' + lon + '&latitude=' + lat + '&start=20010501&end=' + endS + '&format=JSON';
     var ctrl = new AbortController(); var to = setTimeout(function () { ctrl.abort(); }, 90000);
+    busy(1);
     return fetch(url, { signal: ctrl.signal }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (j) {
+      // Se deja repintar la pantalla con el aviso antes del cálculo, para que no parezca congelada.
+      busy(2);
+      return new Promise(function (res) { setTimeout(function () { res(j); }, 40); });
+    }).then(function (j) {
       var P = j.properties && j.properties.parameter;
       if (!P || !P.T2M_MAX) throw new Error(lang === 'es' ? 'respuesta sin datos' : tr('empty response'));
       var agg = E.aggregateDaily(P, { heat: 35, frost: 2 }, { startMonth: H.startMonth });
@@ -813,16 +818,30 @@
       pending = null;
       fillLocations(id); fillScenarios(); fillBuilder(); render();
       return id;
-    }).catch(function (e) { throw netError(e); }).finally(function () { clearTimeout(to); });
+    }).catch(function (e) { throw netError(e); }).finally(function () { clearTimeout(to); busy(0); });
+  }
+  // Aviso visible mientras se descarga y se calcula un punto nuevo (0 = ocultar, 1 = descargando, 2 = calculando).
+  var busyTimer = null;
+  function busy(stage) {
+    var el = $('nasaBusy');
+    if (!el) { el = document.createElement('div'); el.id = 'nasaBusy'; el.className = 'nasa-busy'; el.setAttribute('role', 'status'); el.setAttribute('aria-live', 'polite'); el.hidden = true; document.body.appendChild(el); }
+    clearInterval(busyTimer);
+    if (!stage) { el.hidden = true; return; }
+    var es = lang === 'es';
+    var steps = stage === 2 ? [es ? 'Calculando evapotranspiración y balance de agua FAO-56…' : tr('Computing FAO-56 evapotranspiration and water balance…')] : (es ?
+      ['Conectando con la API de NASA POWER…', 'Descargando 25 años de datos diarios: lluvia, temperatura y radiación…', 'NASA POWER sigue preparando unos 9.000 días de datos. Puede tardar hasta un minuto…'] :
+      [tr('Connecting to the NASA POWER API…'), tr('Downloading 25 years of daily data: rain, temperature and radiation…'), tr('NASA POWER is still preparing about 9,000 days of data. It can take up to a minute…')]);
+    var i = 0; el.textContent = steps[0]; el.hidden = false;
+    if (steps.length > 1) busyTimer = setInterval(function () { if (i < steps.length - 1) el.textContent = steps[++i]; }, 6000);
   }
   // Traduce los errores crudos del navegador ("Failed to fetch", AbortError) a un mensaje que el productor entienda.
   function netError(e) {
     if (e && e.range) return e;
     var m = String(e && e.message || '');
     var es = lang === 'es', out;
-    if (e && e.name === 'AbortError') out = es ? 'NASA POWER tardó más de 90 segundos en responder. Prueba de nuevo en un rato; mientras tanto, las 8 zonas guardadas funcionan sin conexión.' : tr('NASA POWER took more than 90 seconds to answer. Try again later; meanwhile the 8 stored areas work offline.');
-    else if (/^HTTP /.test(m)) out = es ? 'NASA POWER respondió con un error (' + m + '). Prueba de nuevo en un rato; las 8 zonas guardadas funcionan sin conexión.' : tp('NASA POWER answered with an error ({0}). Try again later; the 8 stored areas work offline.', [m]);
-    else if (e instanceof TypeError || navigator.onLine === false) out = es ? 'no hay conexión con NASA POWER. Revisa internet y prueba de nuevo; las 8 zonas guardadas funcionan sin conexión.' : tr('there is no connection to NASA POWER. Check your internet and try again; the 8 stored areas work offline.');
+    if (e && e.name === 'AbortError') out = es ? 'NASA POWER tardó más de 90 segundos en responder. Prueba de nuevo en un rato. Mientras tanto, elige una de las 8 zonas guardadas (por ejemplo Itapúa) para ver resultados al instante.' : tr('NASA POWER took more than 90 seconds to answer. Try again later. Meanwhile, pick one of the 8 stored areas (for example Itapúa) to see results instantly.');
+    else if (/^HTTP /.test(m)) out = es ? 'NASA POWER está ocupado o respondió con un error (' + m + '). Prueba de nuevo en un rato. Mientras tanto, elige una de las 8 zonas guardadas (por ejemplo Itapúa) para ver resultados al instante.' : tp('NASA POWER is busy or answered with an error ({0}). Try again later. Meanwhile, pick one of the 8 stored areas (for example Itapúa) to see results instantly.', [m]);
+    else if (e instanceof TypeError || navigator.onLine === false) out = es ? 'no hay conexión con NASA POWER. Revisa internet y prueba de nuevo. Mientras tanto, elige una de las 8 zonas guardadas (por ejemplo Itapúa) para ver resultados al instante.' : tr('there is no connection to NASA POWER. Check your internet and try again. Meanwhile, pick one of the 8 stored areas (for example Itapúa) to see results instantly.');
     else return e;
     var err = new Error(out); err.friendly = true; return err;
   }
@@ -1146,7 +1165,7 @@
     valCal: {
       soja: 'El modelo siembra el 11 de octubre (y el 11 de septiembre la soja temprana) y cosecha en enero o febrero. Publicado: siembra de fines de agosto a inicios de noviembre, cosecha de fines de diciembre a marzo.',
       trigo: 'El modelo cosecha hasta el 10 de octubre; la FAO dice que la cosecha empieza en septiembre. La fecha de siembra no se pudo contrastar.',
-      maiz: 'El modelo corta el maíz zafriña el 30 de abril, pero FAO GIEWS describe su cosecha todavía en marcha en julio y agosto. El modelo no cuenta las heladas de mayo y junio en el maíz, así que puede subestimar el riesgo de la rotación D.',
+      maiz: 'Alcance del modelo: el año agrícola va del 1 de mayo al 30 de abril, así que el maíz zafriña de D se evalúa hasta el 30 de abril. FAO GIEWS describe su cosecha todavía en marcha en julio y agosto; ese tramo final queda fuera de esta versión y está en la hoja de ruta, por lo que el riesgo de helada de D puede ser algo mayor que el mostrado.',
       avena: 'No encontramos un calendario publicado de avena negra para Paraguay.'
     },
     valLimits: function (r21) { return [
@@ -1194,7 +1213,7 @@
     valCal: {
       soja: 'The model sows on 11 October (11 September for early soybean) and harvests in January or February. Published: sowing from late August to early November, harvest from late December to March.',
       trigo: 'The model harvests by 10 October; FAO says harvest starts in September. The sowing date could not be checked.',
-      maiz: 'The model ends second-crop maize on 30 April, but FAO GIEWS describes its harvest as still under way in July and August. The model does not count May and June frost on maize, so it may underestimate the risk of rotation D.',
+      maiz: 'Model scope: the farming year runs from 1 May to 30 April, so the second-crop maize in D is evaluated up to 30 April. FAO GIEWS describes its harvest as still under way in July and August; that last stretch is outside this version and is on the roadmap, so the frost risk of D may be somewhat higher than shown.',
       avena: 'We found no published black oat calendar for Paraguay.'
     },
     valLimits: function (r21) { return [
@@ -1836,6 +1855,11 @@
     mPassport: 'Resilience Passport', mPassportD: 'Report with evidence', mPassportS: 'Report',
     homeH: 'What should I plant this winter to get through a dry year?',
     homeEy: 'NASA Space Apps 2026 · Made in Paraguay for farmers',
+    footBg: 'Background image: Asunción seen from the Space Shuttle (STS-72 mission, 1996), courtesy of the NASA Image and Video Library (sts072-730-079).',
+    pf1: 'Real NASA POWER data: 25 seasons per area, and any point in the world live.',
+    pf2: 'Checked against real harvests: the model’s water deficit tracks soybean yield losses (r = −0.83, 23 seasons).',
+    pf3: 'Works offline, with no account, in 6 languages.',
+    demoIowa: 'Try another country: Iowa, USA (soybean belt)',
     homeLead: 'See how your area did over the last 25 seasons (droughts, heat and frost) and compare which rotation holds up best, with NASA data. Works offline.',
     ctaStart: 'See my area on the map', ctaCompare: 'Compare what to plant', sunLbl: 'Sun', mMoreS: 'More',
     fH: 'Map and satellite', fmListH: 'Areas', rlH: 'Compare rotations', agH: 'How this season is going',
@@ -2015,6 +2039,13 @@
       if (!window.confirm(t.pDelQ(q.name))) return;
       saveParcels(a.filter(function (x) { return x.id !== q.id; })); renderParcels();
     }
+  });
+  // ---- Demo global a un clic: descarga NASA POWER para Iowa (EE. UU.) y abre la comparación ----
+  if ($('demoIowa')) $('demoIowa').addEventListener('click', function () {
+    var btn = this, st = $('demoSt'), es = lang === 'es';
+    btn.disabled = true; st.textContent = '';
+    fetchPoint(42.03, -93.62, es ? 'Iowa, EE. UU. (demo)' : tr('Iowa, USA (demo)')).then(function () { showView('compare'); },
+      function (e) { st.textContent = e.message; }).then(function () { btn.disabled = false; });
   });
   // ---- App instalable (PWA): guarda la app en el dispositivo y la deja usar sin conexión ----
   if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {

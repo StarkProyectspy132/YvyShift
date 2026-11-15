@@ -21,6 +21,7 @@
 | 15 Nov 10:30 | Keep "56 × 62 km" as the cell size in Itapúa | `engine.powerCell(-27.08, -55.65)` gives 56 × 62 (0.625° × 111.32 km × cos 27.5°); a review had suggested 56 × 52 | 56 × 52 | Claude |
 | 15 Nov 13:00 | v17 "field use": Sun mode, 5-button bottom bar with "More", quick questions, home page in farmers' language, sans-serif text on phones | Agricultural UX suggestions from the team and a mobile audit: small touch targets 91 → 17, small texts 70 → 12 | Keep the strip of 9 scrolling icons | Team, with Claude |
 | 15 Nov 13:00 | Home background photo that moves with the mouse (parallax); still on phones and with "reduce motion" | Team request. On phones the movement distracts and drains the battery | Gyroscope parallax | Team |
+| 15 Nov 21:00 | v25 after an external audit: NASA background image (STS-72 photo of Asunción) with credit in the footer; Wi-Fi and size warning before every local AI download; loading messages and a visible error with a pointer to the stored areas when NASA POWER is slow; "No soil" renamed "Pure climate baseline (ignore soil water)"; maize note in D rewritten as model scope; three short facts and a one-click Iowa demo on the home page | The audit flagged an unlicensed photo, a ~0.9 GB download without warning, silent waits and confusing labels | Extend the maize cycle past 30 April in engine.js (left for the roadmap: it crosses into the next farming year and would need new tests) | Team request |
 
 ## 15 Nov 2026 · Assistant with knowledge base and optional local AI (v18)
 

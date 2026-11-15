@@ -524,7 +524,7 @@
  "Grain sorghum": "Sorgo granífero",
  "Sesame": "Gergelim",
  "Dry beans": "Feijão",
- "No soil (climatic deficit)": "Sem solo (déficit climático)",
+ "Pure climate baseline (ignore soil water)": "Linha de base climática (ignora a água do solo)",
  "Sandy": "Arenoso",
  "Loam": "Franco",
  "Clay": "Argiloso",
@@ -586,7 +586,7 @@
  "Generic FAO-56 Kc coefficients and simplified growth-stage fractions.": "Coeficientes Kc genéricos da FAO-56 e frações simplificadas das etapas de crescimento.",
  "Sowing calendars and heat/frost thresholds are assumptions pending validation with local sources (MAG/IPTA) or a technician.": "Os calendários de semeadura e os limiares de calor e geada são suposições pendentes de validação com fontes locais (MAG/IPTA) ou um técnico.",
  "Data read from the local cache (downloaded from POWER on the date shown).": "Dados lidos do cache local (baixados do POWER na data indicada).",
- "No soil: the deficit is climatic (rain − crop demand), not water available in the soil.": "Sem solo: o déficit é climático (chuva − demanda da cultura), não água disponível no solo.",
+ "Pure climate baseline: the deficit is climatic (rain − crop demand); the water stored in the soil is ignored.": "Linha de base climática: o déficit é climático (chuva − demanda da cultura); a água armazenada no solo é ignorada.",
  "Fewer than 15 complete seasons in the series.": "Menos de 15 safras completas na série.",
  "Median of the {0} seasons for each indicator": "Mediana das {0} safras em cada indicador"
 },

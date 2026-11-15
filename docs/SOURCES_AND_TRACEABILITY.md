@@ -47,4 +47,4 @@ The first script prints every statistic quoted below from `app/data/power_cache.
 - FAO-56 chapter numbers for equation 52 and Table 19: only chapter 6 was verified.
 - FAO values: the Our World in Data CSV was not downloaded again on 15 Nov.
 - The Space Apps challenge URL could not be fetched (robots block).
-- The home page background photo licence is unconfirmed.
+- (Resolved 15 Nov) The home background photo of unconfirmed licence was replaced by a NASA astronaut photograph of Asunción (STS-72, images.nasa.gov ID sts072-730-079).

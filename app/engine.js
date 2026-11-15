@@ -190,7 +190,7 @@
   // cad = (θFC − θWP) × profundidad radicular. Profundidad 1,0 m para todos los cultivos: SUPUESTO.
   var ROOT_DEPTH_M = 1.0;
   var SOILS = {
-    none:   { name: 'Sin suelo (déficit climático)', taw: null },
+    none:   { name: 'Ignorar reserva de agua del suelo (solo clima)', taw: null },
     arenoso:{ name: 'Arenoso', taw: 0.08, ref: 'FAO-56 Tabla 19, sand: θFC−θWP 0,05–0,11' },
     franco: { name: 'Franco', taw: 0.155, ref: 'FAO-56 Tabla 19, loam: θFC−θWP 0,13–0,18' },
     arcilloso: { name: 'Arcilloso', taw: 0.16, ref: 'FAO-56 Tabla 19, clay: θFC−θWP 0,12–0,20' }
@@ -503,12 +503,12 @@
     var c = ctx || {}, en = c.lang === 'en', withSoil = c.soil && c.soil !== 'none';
     var reasons = en ? [
       'Regional NASA POWER cell (~0.5° × 0.625° for MERRA-2 meteorology): it does not represent an individual field.',
-      withSoil ? 'Generic soil class (FAO-56 Table 19) with 1 m rooting depth: not a soil analysis of your field.' : 'No soil: the deficit is climatic (rain − crop demand), not water available in the soil.',
+      withSoil ? 'Generic soil class (FAO-56 Table 19) with 1 m rooting depth: not a soil analysis of your field.' : 'Pure climate baseline: the deficit is climatic (rain − crop demand); the water stored in the soil is ignored.',
       'Generic FAO-56 Kc coefficients and simplified growth-stage fractions.',
       'Sowing calendars and heat/frost thresholds are assumptions pending validation with local sources (MAG/IPTA) or a technician.'
     ] : [
       'Celda POWER regional (~0,5° × 0,625° para meteorología MERRA-2): no representa una parcela individual.',
-      withSoil ? 'Suelo genérico (FAO-56 Tabla 19) con 1 m de raíces: no es un análisis de suelo de tu lote.' : 'Sin suelo: el déficit es climático (lluvia − demanda del cultivo), no agua disponible en el suelo.',
+      withSoil ? 'Suelo genérico (FAO-56 Tabla 19) con 1 m de raíces: no es un análisis de suelo de tu lote.' : 'Solo clima: el déficit es climático (lluvia − demanda del cultivo); se ignora el agua guardada en el suelo.',
       'Coeficientes Kc genéricos de FAO-56 y fracciones de etapa simplificadas.',
       'Calendarios de siembra y umbrales de calor y helada: supuestos pendientes de validación con fuentes locales (MAG/IPTA) o un técnico.'
     ];

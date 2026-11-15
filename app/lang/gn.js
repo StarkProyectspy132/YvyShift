@@ -450,7 +450,7 @@
  "Grain sorghum": "Sorgo",
  "Sesame": "Sésamo",
  "Dry beans": "Kumandá",
- "No soil (climatic deficit)": "Yvy'ỹre (ndaipóri y ára rupi)",
+ "Pure climate baseline (ignore soil water)": "Ignorar reserva de agua del suelo (solo clima)",
  "Sandy": "Yvy aryguy",
  "Loam": "Yvy franco",
  "Clay": "Yvy tuguy",
@@ -512,7 +512,7 @@
  "Generic FAO-56 Kc coefficients and simplified growth-stage fractions.": "Coeficiente Kc genérico FAO-56 ha etapa de crecimiento simplificada.",
  "Sowing calendars and heat/frost thresholds are assumptions pending validation with local sources (MAG/IPTA) or a technician.": "Kalendario ñemitỹ ha umbral haku ha ñuhã ha'e ojeguerohory, ojehesa'ỹijo vaerã tenda rehegua (MAG/IPTA) térã tembiguái ndive.",
  "Data read from the local cache (downloaded from POWER on the date shown).": "Mba'ekuaarã ojeguereko cache local-gui (oñemoguahẽ POWER-gui ára ojehechaukávape).",
- "No soil: the deficit is climatic (rain − crop demand), not water available in the soil.": "Yvy'ỹre: pe ndaipóri ha'e climático (ama − ñemitỹ oikotevẽva), ndaha'éi y oĩva yvýpe.",
+ "Pure climate baseline: the deficit is climatic (rain − crop demand); the water stored in the soil is ignored.": "Solo clima: el déficit es climático (lluvia − demanda del cultivo); se ignora el agua guardada en el suelo.",
  "Fewer than 15 complete seasons in the series.": "15 ary hekopete-gui sa'ive serie-pe.",
  "Median of the {0} seasons for each indicator": "Mbytepa {0} ary ñembojoja-pe peteĩteĩ marandu-pe"
 },

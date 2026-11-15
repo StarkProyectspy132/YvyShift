@@ -53,6 +53,7 @@
       noGpu: 'Este navegador no tiene WebGPU, que hace falta para la IA local. El asistente sigue funcionando sin IA. Prueba Chrome actualizado en Android o en una computadora.',
       weakGpu: 'IA local no disponible en este teléfono (su tarjeta gráfica es muy limitada). El asistente guiado funciona igual, sin IA y sin internet. La IA local sí anda en computadoras.',
       retrying: function (n) { return 'Se cortó la conexión. Reintentando (' + n + ' de 3), lo ya bajado no se pierde…'; },
+      wifi: function (sz) { return 'La IA local se descarga una sola vez y pesa ' + sz + '. Conéctate a wifi antes de seguir: con datos móviles puede gastar tu plan. ¿Descargar ahora?'; }, go: 'Descargar',
       cell: function (sz) { return 'Estás con datos móviles o en ahorro de datos. La descarga pesa ' + sz + '. ¿Descargar igual? Mejor hacerlo con wifi.'; },
       yes: 'Descargar igual', no: 'Cancelar',
       space: function (sz) { return 'El navegador no tiene espacio para guardar la IA local (' + sz + ' necesarios). Libera espacio en el disco, no uses una ventana de incógnito y vuelve a intentar: lo ya bajado se conserva.'; },
@@ -81,6 +82,7 @@
       noGpu: 'This browser has no WebGPU, which the local AI needs. The assistant keeps working without AI. Try an up-to-date Chrome on Android or a computer.',
       weakGpu: 'Local AI is not available on this phone (its graphics chip is too limited). The guided assistant works the same, without AI and without internet. The local AI does work on computers.',
       retrying: function (n) { return 'The download was cut. Retrying (' + n + ' of 3); what was already downloaded is kept…'; },
+      wifi: function (sz) { return 'The local AI is downloaded once and is ' + sz + '. Please connect to Wi-Fi first: on mobile data it can use up your plan. Download now?'; }, go: 'Download',
       cell: function (sz) { return 'You are on mobile data or data saver. The download is ' + sz + '. Download anyway? Wi-Fi is better.'; },
       yes: 'Download anyway', no: 'Cancel',
       space: function (sz) { return 'The browser has no room to store the local AI (' + sz + ' needed). Free some disk space, do not use a private window, and try again: what was downloaded is kept.'; },
@@ -571,9 +573,11 @@
     gpuVariant().then(function (v) {
       if (!v) { setSt(gpuWhy === 'weak' ? T.weakGpu : T.noGpu); return; }
       var c = navigator.connection || {};
-      if (!force && (c.saveData || c.type === 'cellular' || /2g|3g/.test(c.effectiveType || ''))) {
+      // Siempre se avisa del tamaño y del wifi antes de bajar casi 1 GB.
+      if (!force) {
+        var cell = c.saveData || c.type === 'cellular' || /2g|3g/.test(c.effectiveType || '');
         var ask = $('iaAsk'); ask.hidden = false;
-        ask.innerHTML = '<p>' + T.cell(SIZE[v]) + '</p><button type="button" id="iaYes">' + T.yes + '</button> <button type="button" class="ghost" id="iaNo">' + T.no + '</button>';
+        ask.innerHTML = '<p>' + (cell ? T.cell(SIZE[v]) : T.wifi(SIZE[v])) + '</p><button type="button" id="iaYes">' + (cell ? T.yes : T.go) + '</button> <button type="button" class="ghost" id="iaNo">' + T.no + '</button>';
         $('iaYes').onclick = function () { ask.hidden = true; install(true); };
         $('iaNo').onclick = function () { ask.hidden = true; };
         return;

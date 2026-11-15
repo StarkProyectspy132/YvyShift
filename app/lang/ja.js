@@ -448,7 +448,7 @@
  "Grain sorghum": "グレインソルガム",
  "Sesame": "ゴマ",
  "Dry beans": "インゲン豆",
- "No soil (climatic deficit)": "土壌なし(気候上の不足)",
+ "Pure climate baseline (ignore soil water)": "純粋な気候ベースライン(土壌水分を無視)",
  "Sandy": "砂質",
  "Loam": "壌土",
  "Clay": "粘土質",
@@ -510,7 +510,7 @@
  "Generic FAO-56 Kc coefficients and simplified growth-stage fractions.": "汎用のFAO-56 Kc係数と簡略化した生育段階の割合。",
  "Sowing calendars and heat/frost thresholds are assumptions pending validation with local sources (MAG/IPTA) or a technician.": "作付カレンダーと高温・霜のしきい値は仮定で、現地の情報源(MAG/IPTA)または技術者による検証待ちです。",
  "Data read from the local cache (downloaded from POWER on the date shown).": "ローカルキャッシュから読み込んだデータ(表示日にPOWERから取得)。",
- "No soil: the deficit is climatic (rain − crop demand), not water available in the soil.": "土壌なし:不足は気候上のもの(降雨−作物の需要)で、土壌中の利用可能な水ではありません。",
+ "Pure climate baseline: the deficit is climatic (rain − crop demand); the water stored in the soil is ignored.": "純粋な気候ベースライン:不足は気候上のもの(降雨−作物の需要)で、土壌に蓄えられた水は無視します。",
  "Fewer than 15 complete seasons in the series.": "系列の完全な作期が15未満です。",
  "Median of the {0} seasons for each indicator": "各指標の{0}作期の中央値"
 },

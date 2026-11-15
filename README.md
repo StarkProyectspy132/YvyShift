@@ -96,6 +96,6 @@ Details in [`docs/NASA_DATA_RESEARCH.md`](docs/NASA_DATA_RESEARCH.md), [`docs/SC
 
 Data: NASA POWER Project (team at NASA Langley Research Center), funded through the NASA Applied Sciences Program, Earth Science Division; MODIS (NASA LP DAAC) through ORNL DAAC and NASA GIBS; HLS and Blue Marble through NASA GIBS. Method: Allen et al. (1998) FAO-56; Hargreaves & Samani (1985); Salem et al. (2007). Local AI: WebLLM (MLC AI) and Qwen2.5-1.5B-Instruct (Alibaba Cloud), both Apache 2.0. Base map: Esri.
 
-Home background photo (`app/data/img/fondo-campo-*.webp`): from 4kwallpapers.org (it carries their watermark). **Licence not yet confirmed**; the team will confirm it or replace it with its own photo.
+Home background image (`app/data/img/fondo-campo-*.webp`): Asunción seen from the Space Shuttle (STS-72 mission, January 1996), NASA Johnson Space Center, from the NASA Image and Video Library (images.nasa.gov, ID sts072-730-079). It replaced on 15 Nov a photo whose licence could not be confirmed.
 
 Team: [names and roles, added by the team].

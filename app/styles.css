@@ -1477,3 +1477,21 @@ button.ia-cancel:focus-visible { outline: 2px solid #F2A541; outline-offset: 2px
 @keyframes iaWait { 50% { opacity: .35; } }
 @media (prefers-reduced-motion: reduce) { .ia-bar.ia-wait span { animation: none; } }
 :root[data-sun="1"] button.ia-cancel { border-color: currentColor; }
+
+/* ---------- Aviso de descarga de NASA POWER ---------- */
+.nasa-busy { position: fixed; right: 24px; bottom: 24px; z-index: 70; display: flex; align-items: center; gap: 10px; max-width: calc(100vw - 32px); padding: 11px 18px; border-radius: 999px; background: var(--navy); color: #F4F1EA; border: 1px solid rgba(242, 165, 65, .55); box-shadow: var(--shadow); font: 600 14px/1.35 var(--font); }
+.nasa-busy::before { content: ""; flex: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(244, 241, 234, .3); border-top-color: #F2A541; animation: nasaspin .9s linear infinite; }
+@keyframes nasaspin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .nasa-busy::before { animation: none; } }
+@media (max-width: 900px) { .nasa-busy { right: 16px; left: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); } }
+
+/* ---------- Portada: tres pruebas y demo global ---------- */
+.proof { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 7px; max-width: 34rem; }
+.proof li { position: relative; padding-left: 22px; font: 500 15px/1.4 var(--font); color: rgba(246, 241, 228, .9); }
+.proof li::before { content: ""; position: absolute; left: 2px; top: .45em; width: 9px; height: 9px; border-radius: 50%; background: #F0B24A; box-shadow: 0 0 0 3px rgba(240, 178, 74, .22); }
+.demo-g { margin: 14px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.demo-btn { min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(240, 178, 74, .7); background: rgba(240, 178, 74, .12); color: #F6F1E4; font: 600 14.5px/1.2 var(--font); cursor: pointer; }
+.demo-btn:hover { background: rgba(240, 178, 74, .24); }
+.demo-btn:disabled { opacity: .6; cursor: progress; }
+.demo-st { font: 500 14px/1.35 var(--font); color: rgba(246, 241, 228, .85); max-width: 34rem; }
+:root[data-sun="1"] .proof li, :root[data-sun="1"] .demo-st { color: inherit; }

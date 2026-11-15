@@ -448,7 +448,7 @@
  "Grain sorghum": "ज्वार",
  "Sesame": "तिल",
  "Dry beans": "राजमा",
- "No soil (climatic deficit)": "बिना मिट्टी (जलवायु कमी)",
+ "Pure climate baseline (ignore soil water)": "शुद्ध जलवायु आधार रेखा (मिट्टी का पानी अनदेखा)",
  "Sandy": "रेतीली",
  "Loam": "दोमट",
  "Clay": "चिकनी",
@@ -510,7 +510,7 @@
  "Generic FAO-56 Kc coefficients and simplified growth-stage fractions.": "सामान्य FAO-56 Kc गुणांक और सरल की गई विकास-अवस्था के अंश।",
  "Sowing calendars and heat/frost thresholds are assumptions pending validation with local sources (MAG/IPTA) or a technician.": "बुवाई कैलेंडर और गर्मी/पाले की सीमाएँ मान्यताएँ हैं, जिन्हें स्थानीय स्रोतों (MAG/IPTA) या तकनीशियन से जाँचना बाकी है।",
  "Data read from the local cache (downloaded from POWER on the date shown).": "डेटा स्थानीय कैश से पढ़ा गया (दिखाई गई तारीख को POWER से डाउनलोड)।",
- "No soil: the deficit is climatic (rain − crop demand), not water available in the soil.": "बिना मिट्टी: कमी जलवायु-आधारित है (बारिश − फसल की माँग), मिट्टी में उपलब्ध पानी नहीं।",
+ "Pure climate baseline: the deficit is climatic (rain − crop demand); the water stored in the soil is ignored.": "शुद्ध जलवायु आधार रेखा: कमी जलवायु-आधारित है (बारिश − फसल की मांग); मिट्टी में जमा पानी को अनदेखा किया गया है।",
  "Fewer than 15 complete seasons in the series.": "श्रृंखला में 15 से कम पूर्ण मौसम।",
  "Median of the {0} seasons for each indicator": "हर संकेतक के {0} मौसमों की माध्यिका"
 },

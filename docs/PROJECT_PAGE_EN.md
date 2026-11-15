@@ -216,5 +216,5 @@ No AI-generated images or video are used.
 - La Nación (7 Sep 2025), soybean producers expect 3.6 million hectares in 2025/26. https://www.lanacion.com.py/negocios_edicion_impresa/2025/09/07/los-sojeros-preven-una-siembra-de-36-millones-de-hectareas/
 - Esri World Street Map, World Imagery and World Topo Map tiles (base map).
 - WebLLM (MLC AI, Apache 2.0) and Qwen2.5-1.5B-Instruct (Alibaba Cloud, Apache 2.0), optional local AI.
-- Home background photo of a field at sunset: 4kwallpapers.org. [TODO: confirm the licence allows this use, or replace it with a team photo]
+- Home background image: Asunción seen from the Space Shuttle (STS-72 mission, January 1996), NASA Johnson Space Center, from the NASA Image and Video Library (images.nasa.gov, ID sts072-730-079). NASA imagery is generally not subject to copyright in the United States.
 - Claude (Anthropic), development assistant (see "Use of Super Intelligence").
