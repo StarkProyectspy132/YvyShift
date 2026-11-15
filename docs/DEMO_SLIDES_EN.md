@@ -22,7 +22,7 @@ Official limits: at most 7 slides including the title, all text in English, publ
 
 **On slide**
 - In 2021–22, drought cut Paraguay's soybean harvest in half: 10.5 → 5.2 million tonnes (FAO)
-- Itapúa that season: 369 mm of rain vs about 729 mm the soybean needed · 76 days at 35 °C or more
+- Itapúa that season: 369 mm of rain vs about 729 mm the soybean needed · 76 days at 35 °C or more over the year
 - Every winter, farmers choose: fallow, wheat, black oat cover crop, or early soybean + second-crop maize
 - They choose without seeing how each option behaved in their area's good and bad years
 

@@ -54,7 +54,7 @@
       jClose: function (d, id) { return 'La diferencia con la segunda opción (' + id + ') es de solo ' + d + ' puntos: es casi un empate y decide tu experiencia.'; },
       jFew: function (w, n) { return 'Queda primera en ' + w + ' de ' + n + ' campañas: menos de la mitad.'; },
       jSow: 'El resultado cambia si la siembra se corre 10 días: mandan tus fechas reales.',
-      jMaize: 'En D, el ciclo del maíz zafriña termina el 30 de abril porque el modelo cierra el año agrícola ahí; en la zona la cosecha suele ser entre junio y agosto (FAO GIEWS). El agua y las heladas de mayo a julio de ese maíz no se cuentan.',
+      jMaize: 'En D, el ciclo del maíz zafriña termina el 30 de abril porque el modelo cierra el año agrícola ahí; FAO GIEWS describe la cosecha del maíz zafriña todavía en marcha en julio y agosto. El agua y las heladas de mayo a julio de ese maíz no se cuentan.',
       jAlways: 'La herramienta no ve tu lote, tus máquinas, plagas y enfermedades, precios ni contratos. Eso lo saben tú y tu técnico.',
       exclNote: function (l) { return 'Fuera de la comparación por tus limitaciones: ' + l + '. Los puntajes se recalculan solo entre las que quedan.'; },
       limits: { trigo: 'Trigo', maiz: 'Maíz zafriña', avena: 'Avena negra', early: 'Soja en septiembre (siembra temprana)' },
@@ -106,7 +106,7 @@
             return '<dl><dt>Agua que faltó (déficit)</dt><dd>Milímetros que el cultivo pedía y que ni la lluvia ni el agua guardada en el suelo cubrieron.</dd>' +
               '<dt>Demanda del cultivo (ETc)</dt><dd>Agua que el cultivo necesita según el calor, el sol y su etapa. Se calcula con el método FAO-56.</dd>' +
               '<dt>Calor en floración</dt><dd>Días con máxima de 35 °C o más en la etapa media del cultivo. Umbral tomado de Salem et al. (2007, Crop Science 47:219), que encontraron que la reproducción de la soja es sensible a más de 35 °C; para trigo y maíz es un supuesto.</dd>' +
-              '<dt>Helada</dt><dd>Días con mínima de 2 °C o menos a 2 m. Es un umbral intermedio entre la helada meteorológica (0 °C a 1,5 m) y la agrometeorológica (3 °C a 1,5 m) del Servicio Meteorológico Nacional de Argentina; falta validarlo con un agrónomo local.</dd>' +
+              '<dt>Helada</dt><dd>Días con mínima de 2 °C o menos a 2 m. Es un umbral intermedio entre la helada meteorológica (0 °C a 1,5 m) y la agrometeorológica (3 °C a 1,5 m) que cita el INTA (Instituto de Clima y Agua, Argentina); falta validarlo con un agrónomo local.</dd>' +
               '<dt>Suelo cubierto</dt><dd>Parte del año con un cultivo vivo en el lote.</dd>' +
               '<dt>Diversidad</dt><dd>Familias de cultivos distintas en la rotación: leguminosas (soja) y gramíneas (trigo, avena, maíz).</dd>' +
               '<dt>Zafriña</dt><dd>Segundo cultivo sembrado enseguida después de la soja temprana.</dd>' +
@@ -155,7 +155,7 @@
       jClose: function (d, id) { return 'The gap to the second option (' + id + ') is only ' + d + ' points: nearly a tie, so your experience decides.'; },
       jFew: function (w, n) { return 'It ranks first in ' + w + ' of ' + n + ' seasons: fewer than half.'; },
       jSow: 'The result changes if sowing moves by 10 days: your real dates rule.',
-      jMaize: 'In D, the second-crop maize cycle ends on 30 April because the model closes the farming year there; locally it is usually harvested between June and August (FAO GIEWS). Water use and frost from May to July for that maize are not counted.',
+      jMaize: 'In D, the second-crop maize cycle ends on 30 April because the model closes the farming year there; FAO GIEWS describes the second-crop maize harvest as still under way in July and August. Water use and frost from May to July for that maize are not counted.',
       jAlways: 'The tool cannot see your field, your machinery, pests and diseases, prices or contracts. You and your technician know those.',
       exclNote: function (l) { return 'Left out of the comparison because of your constraints: ' + l + '. Scores are recalculated among the remaining ones only.'; },
       limits: { trigo: 'Wheat', maiz: 'Second-crop maize', avena: 'Black oat', early: 'Soybean in September (early sowing)' },
@@ -207,7 +207,7 @@
             return '<dl><dt>Water shortfall (deficit)</dt><dd>Millimetres the crop needed that neither rain nor water stored in the soil covered.</dd>' +
               '<dt>Crop demand (ETc)</dt><dd>Water the crop needs given heat, sun and growth stage. Computed with the FAO-56 method.</dd>' +
               '<dt>Heat at flowering</dt><dd>Days with a maximum of 35 °C or more during the crop’s mid stage. Threshold from Salem et al. (2007, Crop Science 47:219), who found soybean reproduction sensitive to temperatures above 35 °C; for wheat and maize it is an assumption.</dd>' +
-              '<dt>Frost</dt><dd>Days with a minimum of 2 °C or less at 2 m. It sits between the meteorological frost (0 °C at 1.5 m) and the agrometeorological frost (3 °C at 1.5 m) used by Argentina’s National Weather Service; still to be checked with a local agronomist.</dd>' +
+              '<dt>Frost</dt><dd>Days with a minimum of 2 °C or less at 2 m. It sits between the meteorological frost (0 °C at 1.5 m) and the agrometeorological frost (3 °C at 1.5 m) cited by INTA (Instituto de Clima y Agua, Argentina); still to be checked with a local agronomist.</dd>' +
               '<dt>Soil cover</dt><dd>Share of the year with a living crop on the field.</dd>' +
               '<dt>Diversity</dt><dd>Different crop families in the rotation: legumes (soybean) and grasses (wheat, oat, maize).</dd>' +
               '<dt>Second-crop maize (zafriña)</dt><dd>A second crop sown right after early soybean.</dd>' +
@@ -1146,7 +1146,7 @@
     valCal: {
       soja: 'El modelo siembra el 11 de octubre (y el 11 de septiembre la soja temprana) y cosecha en enero o febrero. Publicado: siembra de fines de agosto a inicios de noviembre, cosecha de fines de diciembre a marzo.',
       trigo: 'El modelo cosecha hasta el 10 de octubre; la FAO dice que la cosecha empieza en septiembre. La fecha de siembra no se pudo contrastar.',
-      maiz: 'El modelo corta el maíz zafriña el 30 de abril, pero la FAO reporta su cosecha entre junio y agosto. El modelo no cuenta las heladas de mayo y junio en el maíz, así que puede subestimar el riesgo de la rotación D.',
+      maiz: 'El modelo corta el maíz zafriña el 30 de abril, pero FAO GIEWS describe su cosecha todavía en marcha en julio y agosto. El modelo no cuenta las heladas de mayo y junio en el maíz, así que puede subestimar el riesgo de la rotación D.',
       avena: 'No encontramos un calendario publicado de avena negra para Paraguay.'
     },
     valLimits: function (r21) { return [
@@ -1194,7 +1194,7 @@
     valCal: {
       soja: 'The model sows on 11 October (11 September for early soybean) and harvests in January or February. Published: sowing from late August to early November, harvest from late December to March.',
       trigo: 'The model harvests by 10 October; FAO says harvest starts in September. The sowing date could not be checked.',
-      maiz: 'The model ends second-crop maize on 30 April, but FAO reports its harvest between June and August. The model does not count May and June frost on maize, so it may underestimate the risk of rotation D.',
+      maiz: 'The model ends second-crop maize on 30 April, but FAO GIEWS describes its harvest as still under way in July and August. The model does not count May and June frost on maize, so it may underestimate the risk of rotation D.',
       avena: 'We found no published black oat calendar for Paraguay.'
     },
     valLimits: function (r21) { return [

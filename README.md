@@ -94,7 +94,7 @@ Details in [`docs/NASA_DATA_RESEARCH.md`](docs/NASA_DATA_RESEARCH.md), [`docs/SC
 
 ## Credits
 
-Data: NASA Langley Research Center (LaRC) POWER Project, funded through the NASA Earth Science/Applied Science Program; MODIS (NASA LP DAAC) through ORNL DAAC and NASA GIBS; HLS and Blue Marble through NASA GIBS. Method: Allen et al. (1998) FAO-56; Hargreaves & Samani (1985); Salem et al. (2007). Local AI: WebLLM (MLC AI) and Qwen2.5-1.5B-Instruct (Alibaba Cloud), both Apache 2.0. Base map: Esri.
+Data: NASA POWER Project (team at NASA Langley Research Center), funded through the NASA Applied Sciences Program, Earth Science Division; MODIS (NASA LP DAAC) through ORNL DAAC and NASA GIBS; HLS and Blue Marble through NASA GIBS. Method: Allen et al. (1998) FAO-56; Hargreaves & Samani (1985); Salem et al. (2007). Local AI: WebLLM (MLC AI) and Qwen2.5-1.5B-Instruct (Alibaba Cloud), both Apache 2.0. Base map: Esri.
 
 Home background photo (`app/data/img/fondo-campo-*.webp`): from 4kwallpapers.org (it carries their watermark). **Licence not yet confirmed**; the team will confirm it or replace it with its own photo.
 

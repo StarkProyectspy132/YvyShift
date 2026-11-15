@@ -23,9 +23,9 @@
 | Limitation | What we did | Status |
 |---|---|---|
 | The ranking is decided by the calendar, not by climate (with NASA data alone, fallow ranks first in 13 to 17 of 25 seasons) | NASA lens and "Show NASA data only" button in Rotation Lab; the pitch says it openly | Shown in the app |
-| The second-crop maize harvest falls outside the model window (the model cuts on 30 April; FAO GIEWS: June to August) | Warning in "Where your judgment matters most" when maize is compared | Shown in the app; full fix pending (a cycle that crosses the agricultural year) |
+| The second-crop maize harvest falls outside the model window (the model cuts on 30 April; FAO GIEWS describes the harvest still under way in July and August) | Warning in "Where your judgment matters most" when maize is compared | Shown in the app; full fix pending (a cycle that crosses the agricultural year) |
 | Heat threshold 35 °C | Source: Salem et al. 2007, Crop Science 47:219 (soybean). For wheat and maize it is still an assumption | Cited in the app |
-| Frost threshold 2 °C at 2 m | Sits between meteorological frost (0 °C) and agrometeorological frost (3 °C) of Argentina's National Weather Service | Cited in the app; agronomist check pending |
+| Frost threshold 2 °C at 2 m | Sits between meteorological frost (below 0 °C) and agrometeorological frost (below 3 °C), both at 1.5 m, as cited by INTA's Instituto de Clima y Agua (Argentina) | Cited in the app; agronomist check pending |
 | The field "greenness" is a colour index on an image, not NDVI | Labelled "Visual greenness index (not NDVI)" | Done |
 | Scale: 30 m field images, about 56 × 62 km climate cell | Fixed sentence in the app footer; the map draws the cell | Done |
 | Calendars not validated locally | Form ready in `AGRONOMIST_VALIDATION.md` | Pending |

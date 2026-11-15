@@ -149,7 +149,6 @@
  "No source": "कोई स्रोत नहीं",
  "The model sows on 11 October (11 September for early soybean) and harvests in January or February. Published: sowing from late August to early November, harvest from late December to March.": "मॉडल 11 अक्टूबर को बुवाई करता है (जल्दी सोयाबीन के लिए 11 सितंबर) और जनवरी या फरवरी में कटाई करता है। प्रकाशित: बुवाई अगस्त के अंत से नवंबर की शुरुआत, कटाई दिसंबर के अंत से मार्च।",
  "The model harvests by 10 October; FAO says harvest starts in September. The sowing date could not be checked.": "मॉडल 10 अक्टूबर तक कटाई करता है; FAO के अनुसार कटाई सितंबर में शुरू होती है। बुवाई की तारीख जाँची नहीं जा सकी।",
- "The model ends second-crop maize on 30 April, but FAO reports its harvest between June and August. The model does not count May and June frost on maize, so it may underestimate the risk of rotation D.": "मॉडल दूसरी फसल की मक्का को 30 अप्रैल को समाप्त करता है, पर FAO उसकी कटाई जून से अगस्त के बीच बताता है। मॉडल मक्का पर मई–जून के पाले को नहीं गिनता, इसलिए फसल चक्र D का जोखिम कम आँक सकता है।",
  "We found no published black oat calendar for Paraguay.": "हमें पैराग्वे के लिए काली जई का कोई प्रकाशित कैलेंडर नहीं मिला।",
  "Soybean yield and production:": "सोयाबीन की उपज और उत्पादन:",
  "Which crop rotation holds up best in a tough year? Test it with NASA data.": "कठिन साल में कौन सा फसल चक्र सबसे अच्छा टिकता है? NASA डेटा से जाँचें।",

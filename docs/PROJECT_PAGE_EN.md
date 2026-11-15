@@ -37,7 +37,7 @@ YvyShift is a free web app that lets farmers and extension technicians compare c
 
 #### The problem
 
-Soybean is the backbone of farming in eastern Paraguay: about 3 million hectares in the Eastern Region (2022 National Agricultural Census), and producers expected to sow about 3.6 million hectares nationwide in 2025/26 (Paraguayan Soybean Producers Association, September 2025). In the 2021–22 drought, national soybean output fell by half, from 10.5 to 5.2 million tonnes (FAO). NASA POWER data for Itapúa show that season had the highest reference evapotranspiration (1,604 mm) and the most days at or above 35 °C (76) since 2001. During the soybean cycle, rain was 369 mm against an estimated crop demand of 729 mm.
+Soybean is the backbone of farming in eastern Paraguay: about 3 million hectares in the Eastern Region (2022 National Agricultural Census), and producers expected to sow about 3.6 million hectares nationwide in 2025/26 (Paraguayan Soybean Producers Association, September 2025). In the 2021–22 drought, national soybean output fell by half, from 10.5 to 5.2 million tonnes (FAO). NASA POWER data for Itapúa show that season had the highest reference evapotranspiration (1,604 mm) and the most days at or above 35 °C (76 over the agricultural year) since 2001. During the soybean cycle, rain was 369 mm against an estimated crop demand of 729 mm.
 
 Every year a farmer decides what to do in winter and when to sow: leave the field fallow, grow wheat, grow a black oat cover crop, or sow soybean early and follow it with second-crop maize. Each option trades water, heat and frost exposure, soil cover and the number of harvests. Until now there was no simple way to see how each option would have behaved across the good and bad years of the farmer's own area.
 
@@ -96,9 +96,9 @@ NASA POWER is a reanalysis, so we also checked the model against a direct satell
 
 - **Water demand:** reference evapotranspiration uses Hargreaves (FAO-56 eq. 52) with radiation from NASA POWER. Crop demand uses FAO-56 Table 12 crop coefficients and a soil water bucket with FAO-56 Table 19 soil classes. The calculation runs in 10-day steps.
 - **Heat at flowering:** counts days at or above 35 °C, following Salem et al. (2007), who found soybean reproduction is sensitive to temperatures above 35 °C.
-- **Frost:** counts days at or below 2 °C at 2 m. This sits between the meteorological (0 °C) and agrometeorological (3 °C) frost definitions of Argentina's National Weather Service.
+- **Frost:** counts days at or below 2 °C at 2 m. This sits between the meteorological (below 0 °C) and agrometeorological (below 3 °C) frost definitions, both measured at 1.5 m, cited by INTA's Instituto de Clima y Agua (Argentina).
 - **Sowing calendar:** the soybean calendar falls inside the published window.
-- **Known gap, shown in the app:** the second-crop maize cycle is cut on 30 April, while FAO reports the local harvest between June and August, so frost risk for that rotation is underestimated.
+- **Known gap, shown in the app:** the second-crop maize cycle is cut on 30 April, while FAO GIEWS describes the zafriña harvest as still under way in July and August, so frost risk for that rotation is underestimated.
 
 #### What it is not
 
@@ -210,7 +210,7 @@ No AI-generated images or video are used.
 - Allen, R.G., Pereira, L.S., Raes, D., Smith, M. (1998). Crop evapotranspiration. FAO Irrigation and Drainage Paper 56. https://www.fao.org/4/x0490e/x0490e0b.htm
 - Hargreaves, G.H., Samani, Z.A. (1985). Reference crop evapotranspiration from temperature. Applied Engineering in Agriculture 1(2): 96–99.
 - Salem, M.A., Kakani, V.G., Koti, S., Reddy, K.R. (2007). Pollen-based screening of soybean genotypes for high temperatures. Crop Science 47(1): 219–231. https://doi.org/10.2135/cropsci2006.07.0443
-- Servicio Meteorológico Nacional (Argentina), frost definitions. https://www.argentina.gob.ar/node/397275
+- Argentina.gob.ar (7 Sep 2023), "Primavera, época para estar atentos a las heladas": frost definitions given by a meteorologist of INTA's Instituto de Clima y Agua. https://www.argentina.gob.ar/noticias/primavera-epoca-para-estar-atentos-las-heladas
 - farmdoc daily (21 Apr 2026), Paraguay's role in the global soybean market. https://farmdocdaily.illinois.edu/2026/04/paraguays-role-in-the-global-soybean-market.html
 - Última Hora, 2022 National Agricultural Census soybean area. https://www.ultimahora.com/la-soja-tuvo-minimo-impacto-en-cambio-de-uso-de-suelos
 - La Nación (7 Sep 2025), soybean producers expect 3.6 million hectares in 2025/26. https://www.lanacion.com.py/negocios_edicion_impresa/2025/09/07/los-sojeros-preven-una-siembra-de-36-millones-de-hectareas/

@@ -151,7 +151,6 @@
  "No source": "Ndaipóri tenda",
  "The model sows on 11 October (11 September for early soybean) and harvests in January or February. Published: sowing from late August to early November, harvest from late December to March.": "Modelo oñemitỹ 11 de octubre-pe (11 de setiembre soja pya'e-pe guarã) ha ohapy enero térã febrero-pe. Ojehechaukáva: ñemitỹ agosto ako guive noviembre ñepyrũ peve, ñembyaty diciembre ako guive marzo peve.",
  "The model harvests by 10 October; FAO says harvest starts in September. The sowing date could not be checked.": "Modelo ohapy 10 de octubre peve; FAO he'i ñembyaty oñepyrũha setiembre-pe. Ndaikatúi ojehesa'ỹijo ñemitỹ ára.",
- "The model ends second-crop maize on 30 April, but FAO reports its harvest between June and August. The model does not count May and June frost on maize, so it may underestimate the risk of rotation D.": "Modelo omohu'ã avati zafriña 30 de abril-pe, ha FAO he'i ñembyaty oikoha junio ha agosto apytépe. Modelo ndoikuaái ñuhã mayo ha junio avati rehe, upévare ikatu omboguejy ñembyasy rotación D rehegua.",
  "We found no published black oat calendar for Paraguay.": "Ndajuhúi kalendario avena hũ-pe guarã Paraguáipe.",
  "Soybean yield and production:": "Soja rapykuere ha ñemoĩ:",
  "Which crop rotation holds up best in a tough year? Test it with NASA data.": "Mba'e ñemitỹ jehasa opytávo mbarete ary ivaívape? Ehecha NASA mba'ekuaarã ndive.",

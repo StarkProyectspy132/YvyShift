@@ -167,7 +167,6 @@
  "No source": "Sem fonte",
  "The model sows on 11 October (11 September for early soybean) and harvests in January or February. Published: sowing from late August to early November, harvest from late December to March.": "O modelo semeia em 11 de outubro (11 de setembro para a soja antecipada) e colhe em janeiro ou fevereiro. Publicado: semeadura de fins de agosto a início de novembro, colheita de fins de dezembro a março.",
  "The model harvests by 10 October; FAO says harvest starts in September. The sowing date could not be checked.": "O modelo colhe até 10 de outubro; a FAO diz que a colheita começa em setembro. Não foi possível verificar a data de semeadura.",
- "The model ends second-crop maize on 30 April, but FAO reports its harvest between June and August. The model does not count May and June frost on maize, so it may underestimate the risk of rotation D.": "O modelo encerra o milho safrinha em 30 de abril, mas a FAO registra sua colheita entre junho e agosto. O modelo não conta geadas de maio e junho no milho, então pode subestimar o risco da rotação D.",
  "We found no published black oat calendar for Paraguay.": "Não encontramos calendário publicado da aveia-preta para o Paraguai.",
  "Soybean yield and production:": "Produtividade e produção de soja:",
  "Which crop rotation holds up best in a tough year? Test it with NASA data.": "Qual rotação de culturas aguenta melhor um ano difícil? Teste com dados da NASA.",

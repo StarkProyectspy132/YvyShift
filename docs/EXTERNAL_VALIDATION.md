@@ -12,10 +12,10 @@ Date: 14 Nov 2026. Everything was computed with the app's cached data and with p
 |---|---|
 | Correlation model deficit vs yield anomaly | **r = −0.83** (23 seasons) |
 | Correlation heat days at flowering vs anomaly | r = −0.77 |
-| Without the 2021–22 drought | r = −0.77 |
+| Without the 2021–22 drought (that season dropped from the same calculation) | r = −0.77 (−0.75 if the trend is refitted without it) |
 | The 5 worst real seasons | 2021–22, 2011–12, 2008–09, 2005–06, 2003–04 |
 | The 5 driest according to the model | 2021–22, 2011–12, 2008–09, 2005–06, 2022–23 |
-| Matches | **4 of 5** (probability of getting this at random: 0.3 %) |
+| Matches | **4 of 5** (probability of getting this at random: 0.27 %, hypergeometric test) |
 | The same test in each of the 8 areas | r between −0.59 (Misiones) and −0.86 (Alto Paraná) |
 
 With only Itapúa and Alto Paraná (the first version) the result was r = −0.81.
@@ -37,9 +37,9 @@ ERA5 is another reanalysis from another centre: independent of NASA, but not a s
 
 | Crop | Result |
 |---|---|
-| Soybean (11 Oct and 11 Sep) | ✅ Inside the published window: sowing from late August to early November, harvest from late December to March ([farmdoc daily, 21 Apr 2026](https://farmdocdaily.illinois.edu/2026/04/paraguays-role-in-the-global-soybean-market.html)) |
+| Soybean (11 Oct and 11 Sep) | ✅ Inside the published window: sowing from late August through early November, harvest from as early as late December into March ([farmdoc daily, 21 Apr 2026](https://farmdocdaily.illinois.edu/2026/04/paraguays-role-in-the-global-soybean-market.html)) |
 | Wheat | 🟡 Harvest starts in September ([FAO GIEWS, 25 Sep 2026](https://www.fao.org/giews/countrybrief/country.jsp?code=PRY)); the model harvests by 10 Oct. No source for sowing |
-| Second-crop maize | ⚠️ FAO reports the harvest between June and August; the model cuts the cycle on 30 Apr. **It does not count May and June frosts on maize, so it may underestimate the risk of rotation D.** The app says so |
+| Second-crop maize | ⚠️ FAO GIEWS (25 Sep 2026) describes the 2026 zafriña harvest as heading to completion, with rain between mid-July and mid-August disrupting harvesting; the model cuts the cycle on 30 Apr. **It does not count May and June frosts on maize, so it may underestimate the risk of rotation D.** The app says so |
 | Black oat | No published calendar found. **Not shown in the app** (team decision, 14 Nov): the comparison table only lists what could be checked. The calendar stays marked as an assumption in the confidence section |
 
 The USDA (IPAD) crop calendar page has been retired and could not be used.
@@ -52,13 +52,13 @@ January MODIS NDVI (MOD13Q1) against the model's deficit: **r = −0.76 in Itap�
 
 | Figure | Source |
 |---|---|
-| Soybean production fell **50 %** in the drought: from 10.5 to 5.2 million t; yield from 2.89 to 1.47 t/ha | FAO, FAOSTAT (through Our World in Data) |
-| **3,009,608 ha** of soybean in the Eastern Region in 2022; more than 87 % in Alto Paraná, Canindeyú, Itapúa, San Pedro and Caaguazú | 2022 National Agricultural Census, cited by [Última Hora](https://www.ultimahora.com/la-soja-tuvo-minimo-impacto-en-cambio-de-uso-de-suelos) |
-| Almost **39,000 smallholders** (farms under 20 ha) plant 20 % of the soybean | UGP, August 2017, cited by [Última Hora](https://www.ultimahora.com/casi-39000-pequenos-productores-plantan-el-20-del-total-la-soja-n1103857). Old figure: always quote it with its year |
+| Soybean production fell **50 %** in the drought: from 10,537,080 to 5,219,684 t; yield from 2.895 to 1.475 t/ha (FAO harvest years 2021 and 2022) | FAO, FAOSTAT (through Our World in Data); values stored in `app/data/validation.js` |
+| **3,009,608 ha** of soybean in the Eastern Region in 2022 (the same article gives 2,978,795 ha from Infona's own map, 1.1 % lower); more than 87 % in Alto Paraná, Canindeyú, Itapúa, San Pedro and Caaguazú | 2022 National Agricultural Census, cited by [Última Hora](https://www.ultimahora.com/la-soja-tuvo-minimo-impacto-en-cambio-de-uso-de-suelos) |
+| Almost **39,000 smallholders** (farms under 20 ha) account for 20 % of the soybean **area** | UGP, August 2017, cited by [Última Hora](https://www.ultimahora.com/casi-39000-pequenos-productores-plantan-el-20-del-total-la-soja-n1103857). Old figure: always quote it with its year |
 | Farmers expect to sow about **3.6 million ha** of soybean in 2025/26 | Soybean Growers Association, cited by [La Nación, 7 Sep 2025](https://www.lanacion.com.py/negocios_edicion_impresa/2025/09/07/los-sojeros-preven-una-siembra-de-36-millones-de-hectareas/) |
 | Paraguay has supplied on average **3.9 %** of world soybean exports since 2000 | [farmdoc daily, 21 Apr 2026](https://farmdocdaily.illinois.edu/2026/04/paraguays-role-in-the-global-soybean-market.html) |
 
-Other estimates of the 2021–22 harvest are lower (USDA 3.9 Mt; CAPECO estimated as low as 2.97 Mt). The app uses the FAO figure.
+The app uses the FAO figure for the 2021–22 harvest. Other agencies publish different estimates, which we have not compared.
 
 ## Limits
 

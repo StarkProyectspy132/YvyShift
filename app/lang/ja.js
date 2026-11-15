@@ -149,7 +149,6 @@
  "No source": "出典なし",
  "The model sows on 11 October (11 September for early soybean) and harvests in January or February. Published: sowing from late August to early November, harvest from late December to March.": "モデルは10月11日に播種(早期大豆は9月11日)し、1月または2月に収穫します。公表値:播種は8月下旬から11月上旬、収穫は12月下旬から3月。",
  "The model harvests by 10 October; FAO says harvest starts in September. The sowing date could not be checked.": "モデルは10月10日までに収穫します。FAOは収穫が9月に始まるとしています。播種日は確認できませんでした。",
- "The model ends second-crop maize on 30 April, but FAO reports its harvest between June and August. The model does not count May and June frost on maize, so it may underestimate the risk of rotation D.": "モデルは二期作トウモロコシを4月30日に終えますが、FAOはその収穫を6〜8月と報告しています。モデルはトウモロコシの5〜6月の霜を数えないため、輪作Dのリスクを過小評価する可能性があります。",
  "We found no published black oat calendar for Paraguay.": "パラグアイで公表されている黒オーツのカレンダーは見つかりませんでした。",
  "Soybean yield and production:": "大豆の収量と生産:",
  "Which crop rotation holds up best in a tough year? Test it with NASA data.": "どの輪作が厳しい年に最も強いか?NASAデータで試しましょう。",
