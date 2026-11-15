@@ -1,34 +1,41 @@
-# Field Shift — texto del reto y Resources
+# Field Shift: challenge text and resources
 
-## Objetivo (resumen; pegar el texto completo de la pestaña principal)
-Herramienta de apoyo a decisiones que combine observaciones de la Tierra de NASA con datos locales de suelo, rasgos de cultivos y prioridades del productor para explorar rotaciones que mejoren la salud del suelo y ayuden a adaptarse a condiciones cambiantes.
+## Objective (summary)
+A decision support tool that combines NASA Earth observations with local soil data, crop traits and farmer priorities to explore crop rotations that improve soil health and help farms adapt to changing conditions.
 
-## Resources (pegado por Miguel el 14-nov-2026; la copia que recibí estaba cortada al final)
+## Resources (pasted by the team on 14 Nov 2026; the copy received was cut off at the end)
 
-**NASA Data & Resources** listados en el reto:
-- SMAP (humedad de suelo superficial, cada 2–3 días)
-- GPM / IMERG (precipitación)
-- Landsat y MODIS/VIIRS (reflectancia, NDVI, índices de vegetación) ← **usado (MODIS NDVI vía GIBS)**
-- **NASA POWER** (agroclimatología y meteorología) ← **usado como fuente principal**
-- SRTM (elevación y terreno)
-- ECOSTRESS (temperatura de superficie y ET)
+**NASA Data & Resources** listed in the challenge:
+- SMAP (surface soil moisture, every 2–3 days)
+- GPM / IMERG (precipitation)
+- Landsat and MODIS/VIIRS (reflectance, NDVI, vegetation indices) ← **used (MODIS NDVI through GIBS and the ORNL DAAC web service; HLS through GIBS)**
+- **NASA POWER** (agroclimatology and meteorology) ← **used as the main source**
+- SRTM (elevation and terrain)
+- ECOSTRESS (land surface temperature and ET)
 
-Otros recursos listados: USDA Ag Data Commons, Web Soil Survey, Cropland Data Layer (CropScape), PRISM, SSURGO/STATSGO2, NAIP, NLCD (solo EE. UU.); NLDAS/GLDAS; FAO GAEZ (global); CoCoRaHS (Norteamérica); … (el resto quedó cortado).
+Other resources listed: USDA Ag Data Commons, Web Soil Survey, Cropland Data Layer (CropScape), PRISM, SSURGO/STATSGO2, NAIP, NLCD (United States only); NLDAS/GLDAS; FAO GAEZ (global); CoCoRaHS (North America); and others (the rest was cut off).
 
-Nota del reto: "NASA does not endorse any non-U.S. Government entity… participants must comply with any data use parameters of that specific website."
+Challenge note: NASA does not endorse any non-U.S. Government entity, and participants must comply with the data use terms of each website.
 
-## Potential Considerations (dos bloques, de capturas en español aportadas por el equipo el 14-nov-2026)
+## Potential considerations (two blocks, from screenshots provided by the team on 14 Nov 2026)
 
-**Cartografía y visualización geoespacial**
-- Considerar que los mapas interactivos ayuden a explorar tendencias a lo largo del tiempo, como la humedad del suelo a largo plazo, las olas de calor o la disminución de las reservas de agua.
-- Explorar formas de visualizar las vulnerabilidades a nivel de campo (por ejemplo, zonas de riesgo de erosión, puntos críticos de estrés hídrico, áreas propensas a las heladas).
-- Puede incluir complementos opcionales, como líneas de tiempo, superposiciones que comparan conjuntos de datos o controles deslizantes de escenarios que ajustan los patrones de lluvia o temperatura.
+**Mapping and geospatial visualisation**
+- Interactive maps can help explore trends over time, such as long-term soil moisture, heat waves or shrinking water reserves.
+- Explore ways to show field-level vulnerabilities (for example erosion risk zones, water stress hotspots, frost-prone areas).
+- Optional add-ons: timelines, overlays that compare datasets, or scenario sliders that adjust rainfall or temperature patterns.
 
-**Diseño centrado en el agricultor**
-- Considerar cómo hacer que la herramienta sea fácilmente interpretable para agricultores con poca experiencia técnica o geoespacial.
-- Pensar en maneras de permitir que los agricultores expresen sus propias prioridades o limitaciones, como la disponibilidad de agua, las limitaciones de los equipos o las preferencias del mercado.
-- Recordar que la herramienta está diseñada para complementar, no para reemplazar, la experiencia local, y destacar los casos en los que el criterio humano es especialmente importante.
+**Farmer-centred design**
+- Make the tool easy to interpret for farmers with little technical or geospatial experience.
+- Let farmers express their own priorities or constraints, such as water availability, equipment limits or market preferences.
+- The tool is meant to complement, not replace, local expertise; highlight the cases where human judgment matters most.
 
-Cómo responde la app a cada punto: ver "Consideraciones del reto e innovación" en `AUDIT.md`.
+## How YvyShift answers each point
 
-**Pendiente:** pegar aquí el resto del reto (Objectives, otros bloques de Potential Considerations si los hay) y el final de la lista de Resources.
+| Consideration | In the app |
+|---|---|
+| Trends over time on maps | Field Monitor (NASA GIBS imagery, two-date HLS comparison) and Field DNA (25 seasons in one picture) |
+| Field-level vulnerabilities | Water deficit, heat at flowering and frost at the sensitive stage per rotation; fields drawn on the map |
+| Timelines, overlays, scenario sliders | Climate Replay, sowing calendar, rainfall simulation slider in Rotation Lab |
+| Easy for farmers | Farmer language on the home page, Sun mode, bottom navigation bar, 6 languages including Guaraní, works offline |
+| Farmer priorities and constraints | Priority weights, soil type, crops the farmer cannot grow, a custom rotation |
+| Complement local expertise | The NASA lens separates what NASA data decide from what the farmer decides; the Resilience Passport is made for the technician |

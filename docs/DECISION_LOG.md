@@ -1,31 +1,37 @@
-# Registro de decisiones
+# Decision log
 
-| Fecha (PY) | Decisión | Por qué | Alternativas descartadas | Quién |
+| Date (PY) | Decision | Why | Alternatives discarded | Who |
 |---|---|---|---|---|
-| 03-nov | Reto: Field Shift | Agricultura es central en Paraguay; datos NASA abundantes | Otros 13 retos | Equipo |
-| 14-nov 14:40 | Sede: Asunción (virtual) | Confirmado por Miguel | Encarnación | Miguel |
-| 14-nov 14:50 | Idea: Rotation Lab (comparador de rotaciones con escenarios) | Puntaje 40/50 en IDEA_SELECTION | Alerta SMAP (29), chatbot IA (24) | Claude A |
-| 14-nov 14:50 | Zona piloto Itapúa + Alto Paraná | Núcleo sojero; donde la sequía 2021–22 pegó fuerte | Chaco (otro sistema productivo) | Claude A |
-| 14-nov 14:55 | Dato base: NASA POWER diario 2001–2026 | API pública sin clave, CORS, 25 años; funciona en el navegador | Earthdata (requiere login; pesado para 30 h) | Claude A |
-| 14-nov 14:55 | ET0 Hargreaves con Ra de POWER | Solo requiere variables confiables de POWER; FAO-56 lo admite si faltan datos | Penman-Monteith (más variables, viento/humedad de reanálisis) | Claude A |
-| 14-nov 15:00 | App 100 % estática con caché offline | Plan B de demo, publicación gratis | Backend Python | Claude A |
-| 14-nov 15:00 | Sumar MODIS NDVI vía GIBS como evidencia visual (sin login) | Dataset de Resources; muestra la sequía 2022 vs 2024 en el mapa; robusto offline | ORNL subsets (no respondió), SMAP (requiere login) | Claude A |
-| 14-nov 15:30 | Balance hídrico con suelo (FAO-56 Tabla 19), arcilloso por defecto | Sin suelo, más cultivos = más déficit siempre; con suelo se ve que la cobertura seca el perfil antes de la soja | Déficit climático solo (queda como opción) | Claude A |
-| 14-nov 15:30 | Normalización proporcional al máximo | Min-max exageraba diferencias pequeñas | Min-max | Claude A |
-| 14-nov 16:10 | Sin IA generativa en el producto | Decisión de Miguel; la explicación de la app es determinista y trazable | Asistente con Claude o Gemini (requería clave y servidor) | Miguel |
-| 14-nov 16:00 | No reutilizar la lógica de AgroClima PY (repo de Federico) | No contiene IA: usa OpenWeather y datos aleatorios como "predicción"; no usa NASA | Portar sus recomendaciones fijas | Claude A |
-| 14-nov 15:00 | Confianza siempre "exploratorio" | Sin suelo, celda regional, calendarios sin validar | Etiqueta "alta" | Claude A |
-| 15-nov 09:40 | Nombre único: **YvyShift** («yvy» = tierra en guaraní + «Shift» del reto) | La auditoría encontró 6 equipos «TerraShift» y un «RotationLab» en Field Shift. «Rotation Lab» queda solo como nombre del módulo de comparación | TERRA-SHIFT Paraguay, Kokue, Arandu Fields, Tierra Colorada | Equipo |
-| 15-nov 09:40 | Quitar por completo el modo con IA (Gemini) de la app | Contradecía «la app no usa IA» (auditoría, punto 10). Plan futuro: IA local, opcional e instalable | Dejarlo apagado | Equipo |
-| 15-nov 09:40 | Demo como video de 30 s con guion en inglés (`DEMO_SCRIPT_30S_EN.md`) | Límite oficial de 30 s o 7 diapositivas; el guion de 90 s no es elegible | 7 diapositivas (queda como plan B) | Equipo |
-| 15-nov 10:30 | Lente NASA en Rotation Lab (botón «Ver solo los datos NASA») | Convierte el hallazgo N-1 en el mensaje central en vez de esconderlo | Esconder N-1 | Claude |
-| 15-nov 10:30 | Mantener «56 × 62 km» como tamaño de la celda en Itapúa | La auditoría dijo 56 × 52, pero `engine.powerCell(-27.08, -55.65)` da 56 × 62 (0,625° × 111,32 km × cos 27,5°) | 56 × 52 | Claude |
-| 15-nov 13:00 | v17 «uso en el campo»: modo sol, barra inferior de 5 botones con «Más», preguntas rápidas, portada en lenguaje del productor, letra sin serifa en el celular | Sugerencias de UX agrícola (`New Text Document.txt`) y auditoría móvil (`AUDITORIA_MOVIL.md`): 91 → 17 áreas táctiles chicas, 70 → 12 textos chicos | Mantener la tira de 9 iconos con desplazamiento | Equipo + Claude |
-| 15-nov 13:00 | Fondo de portada con foto que se desplaza con el mouse (paralaje); quieto en celular y con «menos movimiento» | Pedido del equipo. En el celular el movimiento distrae y gasta batería | Paralaje con giroscopio | Equipo |
+| 3 Nov | Challenge: Field Shift | Agriculture is central to Paraguay; NASA data are plentiful | The other 13 challenges | Team |
+| 14 Nov 14:40 | Venue: Asunción (virtual) | Confirmed by the team lead | Encarnación | Team |
+| 14 Nov 14:50 | Idea: Rotation Lab (rotation comparison with climate scenarios) | Highest score in the team's idea ranking (40/50) | SMAP alert (29), AI chatbot (24) | Team, with Claude |
+| 14 Nov 14:50 | Pilot area Itapúa + Alto Paraná | Soybean core area; where the 2021–22 drought hit hard | Chaco (a different production system) | Team, with Claude |
+| 14 Nov 14:55 | Base data: NASA POWER daily 2001–2026 | Public API with no key, CORS, 25 years; works in the browser | Earthdata (requires login; heavy for a 30-hour event) | Team, with Claude |
+| 14 Nov 14:55 | ET0 Hargreaves with Ra from POWER | Needs only reliable POWER variables; FAO-56 accepts it when data are missing | Penman-Monteith (more variables, reanalysis wind and humidity) | Team, with Claude |
+| 14 Nov 15:00 | 100 % static app with offline cache | Demo fallback, free hosting | Python backend | Team, with Claude |
+| 14 Nov 15:00 | Add MODIS NDVI through GIBS as visual evidence (no login) | A Resources dataset; shows the 2022 drought against 2024 on the map; robust offline | ORNL subsets (did not respond at the time), SMAP (requires login) | Team, with Claude |
+| 14 Nov 15:30 | Water balance with soil (FAO-56 Table 19), clay by default | Without soil, more crops always means more deficit; with soil, it shows that cover crops dry the profile before soybean | Climate-only deficit (kept as an option) | Team, with Claude |
+| 14 Nov 15:30 | Normalisation proportional to the maximum | Min-max exaggerated small differences | Min-max | Team, with Claude |
+| 14 Nov 16:00 | Do not reuse the logic of a teammate's earlier weather app | It contained no AI or NASA data (OpenWeather and random values as a "forecast") | Port its fixed recommendations | Team, with Claude |
+| 14 Nov 15:00 | Confidence always labelled "exploratory" | No field soil data, regional cell, calendars not validated | "High" label | Team, with Claude |
+| 15 Nov 09:40 | Unique name: **YvyShift** ("yvy" = land in Guaraní + "Shift" from the challenge) | Six teams named like "TerraShift" and one "RotationLab" were registered in Field Shift. "Rotation Lab" stays only as the comparison module's name | TERRA-SHIFT Paraguay, Kokue, Arandu Fields, Tierra Colorada | Team |
+| 15 Nov 09:40 | Remove the cloud AI mode (Gemini) from the app completely | It needed a key and a server and contradicted "the app does not send your data anywhere". Future plan: optional, installable local AI | Leave it switched off | Team |
+| 15 Nov 09:40 | Demo as a 30-second video with an English script ([`DEMO_SCRIPT_30S_EN.md`](DEMO_SCRIPT_30S_EN.md)) | Official limit of 30 s or 7 slides; a 90-second script is not eligible | 7 slides (kept as plan B) | Team |
+| 15 Nov 10:30 | NASA lens in Rotation Lab ("Show NASA data only" button) | Turns the finding that fallow wins on climate data alone into the core message instead of hiding it | Hide the finding | Team, with Claude |
+| 15 Nov 10:30 | Keep "56 × 62 km" as the cell size in Itapúa | `engine.powerCell(-27.08, -55.65)` gives 56 × 62 (0.625° × 111.32 km × cos 27.5°); a review had suggested 56 × 52 | 56 × 52 | Claude |
+| 15 Nov 13:00 | v17 "field use": Sun mode, 5-button bottom bar with "More", quick questions, home page in farmers' language, sans-serif text on phones | Agricultural UX suggestions from the team and a mobile audit: small touch targets 91 → 17, small texts 70 → 12 | Keep the strip of 9 scrolling icons | Team, with Claude |
+| 15 Nov 13:00 | Home background photo that moves with the mouse (parallax); still on phones and with "reduce motion" | Team request. On phones the movement distracts and drains the battery | Gyroscope parallax | Team |
 
-## 15-nov-2026 · Asistente con base de conocimiento e IA local opcional (v18)
+## 15 Nov 2026 · Assistant with knowledge base and optional local AI (v18)
 
-- **Decisión:** el chat suma una base de 18 textos fijos con fuente y una IA local opcional (Llama 3.2 1B vía WebLLM, ~0,9 GB) que solo elige un tema de una lista cerrada.
-- **Por qué:** el equipo pidió un chatbot de ~1 GB que funcione en el celular sin conexión, con una capa que le impida inventar.
-- **Seguridad:** salida forzada por gramática + validación en código; el modelo nunca redacta la respuesta; aviso "puede equivocarse" junto al chat; tema y fuente visibles en cada respuesta.
-- **Riesgo aceptado:** puede elegir mal el tema. No probado aún en teléfonos reales. Apagado por defecto. Ver `docs/MODO_IA.md`.
+- **Decision:** the chat adds a base of 18 fixed texts with their sources and an optional local AI running in the browser through WebLLM, which picks a topic from a closed list.
+- **Why:** the team asked for a chatbot of about 1 GB that works on a phone without a connection, with a layer that stops it from inventing.
+- **Safety:** constrained output plus validation in code; topic and source visible in every answer; a "may be wrong" notice next to the chat.
+- **Accepted risk:** it may pick the wrong topic. Off by default.
+
+## 15 Nov 2026 · Local AI v21
+
+- **Decision:** switch the local model from Llama 3.2 1B to Qwen2.5-1.5B-Instruct (about 0.9 GB); store the model in IndexedDB; add a cancel button and automatic retries for the download; when no topic fits, let the model write a short answer, clearly labelled as written by the AI, and remove any sentence with a number that is not in the app's own texts.
+- **Why:** the 1B model answered poorly; the download got stuck with the browser's Cache API; the team asked that the AI download reliably, can be cancelled, and knows agriculture and the whole app.
+- **Phones:** WebLLM needs a GPU limit (`maxComputeWorkgroupStorageSize`) of 32768; many phones offer 16384. On those phones the app says the local AI is not available on this phone, and the rest of the app works the same. The team chose not to build a phone workaround.
+- Details in [`LOCAL_AI.md`](LOCAL_AI.md).

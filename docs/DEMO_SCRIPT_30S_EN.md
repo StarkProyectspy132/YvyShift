@@ -1,8 +1,8 @@
 # YvyShift · Demo video script (30 seconds or less)
 
-Prepared on 15 Nov 2026 to replace `PITCH_SCRIPT.md` as the demo. The official Project Submission Guide says the demo must be a video of 30 seconds or less (or at most 7 slides), and that "Projects that exceed these limits will not be eligible for Global Judging". This script runs about 27 seconds at a calm pace, which leaves 3 seconds of margin.
+Prepared on 15 Nov 2026 as an alternative demo to the 7 slides in [`DEMO_SLIDES_EN.md`](DEMO_SLIDES_EN.md). The official Project Submission Guide says the demo must be a video of 30 seconds or less (or at most 7 slides), and that "Projects that exceed these limits will not be eligible for Global Judging". This script runs about 27 seconds at a calm pace, which leaves 3 seconds of margin.
 
-Everything said here is visible in the app or documented in `docs/VALIDACION_EXTERNA.md` and `docs/auditoria_competitiva/03_SCIENTIFIC_AND_TECHNICAL_AUDIT.md`. Do not add numbers that are not on this page.
+Everything said here is visible in the app or documented in [`EXTERNAL_VALIDATION.md`](EXTERNAL_VALIDATION.md) and [`SCIENTIFIC_VALIDATION.md`](SCIENTIFIC_VALIDATION.md). Do not add numbers that are not on this page.
 
 ## The core message (the one sentence judges should remember)
 
@@ -25,7 +25,7 @@ Total narration: about 72 words, roughly 27 to 28 seconds.
 
 ## Why each line is there
 
-The first two lines cover what the official structure asks for in the first ten seconds: who the team is, which challenge, and the motivation. The 2022 drought figure comes from FAO (production fell from 10.5 to 5.2 million tonnes), as documented in `VALIDACION_EXTERNA.md`.
+The first two lines cover what the official structure asks for in the first ten seconds: who the team is, which challenge, and the motivation. The 2022 drought figure comes from FAO (production fell from 10.5 to 5.2 million tonnes), as documented in [`EXTERNAL_VALIDATION.md`](EXTERNAL_VALIDATION.md).
 
 The "Show NASA data only" shot is the one thing no other team will show. It answers the audit's finding N-1 head-on: with NASA climate data alone, soybean plus winter fallow wins most seasons, and what flips the ranking is how much the farmer values soil cover and a second harvest. Saying it openly turns the main weakness into the headline.
 

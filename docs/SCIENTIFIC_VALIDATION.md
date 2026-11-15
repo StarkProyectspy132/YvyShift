@@ -1,62 +1,78 @@
-# Validación científica del motor (`app/engine.js`)
+# Scientific validation of the engine (`app/engine.js`)
 
-## Fórmulas
-1. **ET0 (mm/día)** = 0,0023 × 0,408 × Ra × (Tmedia + 17,8) × √(Tmax − Tmin). FAO-56 ec. 52. Ra = `TOA_SW_DWN` (MJ/m²/día).
-2. **Kc por dekada:** FAO-56 Tabla 12. Etapas en fracciones fijas 15 / 25 / 40 / 20 % (inicial, desarrollo, media, final), interpolación lineal como FAO-56 Fig. 25. *Supuesto simplificado.*
+## Formulas
 
-| Cultivo | Kc ini | Kc mid | Kc end | Etapa sensible usada |
+1. **ET0 (mm/day)** = 0.0023 × 0.408 × Ra × (Tmean + 17.8) × √(Tmax − Tmin). FAO-56 eq. 52. Ra = `TOA_SW_DWN` (MJ/m²/day).
+2. **Kc per 10-day period:** FAO-56 Table 12. Stages in fixed fractions of 15 / 25 / 40 / 20 % (initial, development, mid, late), with linear interpolation as in FAO-56 Fig. 25. *Simplifying assumption.*
+
+| Crop | Kc ini | Kc mid | Kc end | Sensitive stage used |
 |---|---|---|---|---|
-| Soja | 0,40 | 1,15 | 0,50 | media → calor |
-| Maíz grano | 0,30 | 1,20 | 0,60 | media → calor y helada |
-| Trigo | 0,30 | 1,15 | 0,40 | media → helada |
+| Soybean | 0.40 | 1.15 | 0.50 | mid → heat |
+| Grain maize | 0.30 | 1.20 | 0.60 | mid → heat and frost |
+| Wheat | 0.30 | 1.15 | 0.40 | mid → frost |
+| Oat (approximates black oat) | 0.30 | 1.15 | 0.25 | none |
 
-Soja: además del calor en etapa media, cuenta helada (≤ 2 °C) en la etapa inicial (emergencia). SUPUESTO a validar, agregado el 14-nov para que adelantar la siembra tenga un costo en el modelo. Resultado con datos reales: en 25 campañas, la celda POWER de Itapúa y la de Alto Paraná no registran ningún día ≤ 2 °C en la emergencia de la soja sembrada del 11 al 20 de septiembre. Una celda de ~50 km puede no ver heladas locales.
+Soybean also counts frost (≤ 2 °C) at the initial stage (emergence). This is an assumption to validate, added on 14 Nov so that sowing earlier has a cost in the model. Result with real data: over 25 seasons, the POWER cells of Itapúa and Alto Paraná record no day ≤ 2 °C during the emergence of soybean sown between 11 and 20 September. A cell of about 50 km may not see local frost.
 
-Sensibilidad a la siembra (suelo arcilloso, pesos por defecto, campañas en que cada rotación queda primera, de 25). Itapúa: 10 días antes B 7, C 9, D 9; calendario supuesto B 7, C 6, D 12; 10 días después B 8, C 3, D 14. Alto Paraná: antes B 8, C 9, D 8; supuesto B 10, C 5, D 10; después B 11, C 5, D 9. Conclusión: el liderazgo depende de la fecha de siembra, así que validar calendarios (T-04) es lo que más cambia el resultado. Los umbrales de 35 °C y 2 °C no se pueden variar sin conexión porque la caché guarda conteos por dekada ya calculados.
-| Avena (aprox. avena negra) | 0,30 | 1,15 | 0,25 | ninguna |
+**Sensitivity to sowing date** (clay soil, default weights, seasons in which each rotation ranks first, out of 25):
+- Itapúa: 10 days earlier B 7, C 9, D 9; assumed calendar B 7, C 6, D 12; 10 days later B 8, C 3, D 14.
+- Alto Paraná: earlier B 8, C 9, D 8; assumed B 10, C 5, D 10; later B 11, C 5, D 9.
 
-3. **Déficit hídrico (mm de demanda no cubierta)**, dos modos elegibles en la app:
-   - *Sin suelo (climático):* Σ dekadas con cultivo de max(0, Kc × ET0 − P).
-   - *Con suelo (por defecto, arcilloso):* balance de un "balde" por dekada, continuo entre campañas: disponible = min(CAD, S + P); uso = min(ETc, disponible); déficit = ETc − uso; S = disponible − uso. CAD = (θFC − θWP) × 1,0 m de raíces, con el punto medio de FAO-56 Tabla 19: arenoso 80 mm, franco 155 mm, arcilloso 160 mm. En barbecho el suelo pierde agua con Kc = 0,3 (*supuesto*: suelo con rastrojo de siembra directa), pero ese déficit no se cuenta. Así, un cultivo de invierno o de cobertura deja el suelo más seco para la soja: el modelo refleja ese trade-off. Sin escorrentía ni drenaje diferenciado (el exceso sobre CAD se pierde).
-4. **Calor:** días con T2M_MAX ≥ 35 °C en etapa media. **Helada:** días con T2M_MIN ≤ 2 °C en etapa media. Umbrales = *supuestos a validar* con bibliografía (T-05). Temperatura de aire a 2 m, no del cultivo.
-5. **Suelo cubierto (%)** = dekadas con cultivo vivo / 36 (del calendario, no satelital).
-5b. **Diversidad de cultivos** = cantidad de familias botánicas distintas en la rotación (leguminosa, gramínea). Agregado el 14-nov como segundo indicador de salud del suelo. Sale del calendario, no de datos NASA. Con las cuatro rotaciones fijas solo separa a la base (1 familia) de las demás (2); en rotaciones propias distingue, por ejemplo, avena + maíz (1 familia) de avena + soja (2). *Indicador simple: no mide materia orgánica ni estructura del suelo.*
-6. **Puntaje** = Σ peso_normalizado × valor_normalizado × 100. Normalización proporcional al máximo del grupo: "menor es mejor" → 1 − (v − mín)/máx; "mayor es mejor" → v/máx. Se eligió en lugar de min-max porque min-max convertía diferencias de 6 % en el déficit en 0 vs 100 puntos. La escala es relativa a las rotaciones comparadas.
+Conclusion: which rotation leads depends on the sowing date, so validating the calendars is what would change the result most. The 35 °C and 2 °C thresholds cannot be varied offline, because the cache stores counts per 10-day period that are already computed.
 
-## Calendarios (año agrícola desde 1 de mayo) — PENDIENTE DE VALIDACIÓN
-| Rotación | Cultivos y ventana |
+3. **Water deficit (mm of unmet demand)**, two modes selectable in the app:
+   - *Without soil (climatic):* sum over cropped 10-day periods of max(0, Kc × ET0 − P).
+   - *With soil (default, clay):* a "bucket" balance per 10-day period, continuous across seasons: available = min(TAW, S + P); use = min(ETc, available); deficit = ETc − use; S = available − use. TAW = (θFC − θWP) × 1.0 m of roots, using the mid-point of FAO-56 Table 19: sandy 80 mm, loam 155 mm, clay 160 mm. In fallow the soil loses water with Kc = 0.3 (*assumption*: soil with no-till residue), but that deficit is not counted. So a winter or cover crop leaves the soil drier for soybean, and the model reflects that trade-off. No runoff or separate drainage (water above TAW is lost).
+4. **Heat:** days with T2M_MAX ≥ 35 °C in the mid stage. **Frost:** days with T2M_MIN ≤ 2 °C in the mid stage. Thresholds are sourced in `RISKS_AND_LIMITATIONS.md`. This is air temperature at 2 m, not crop temperature.
+5. **Covered soil (%)** = 10-day periods with a living crop / 36 (from the calendar, not from satellites).
+6. **Crop diversity** = number of different botanical families in the rotation (legume, grass). Added on 14 Nov as a second soil health indicator. It comes from the calendar, not from NASA data. With the four fixed rotations it only separates the baseline (1 family) from the rest (2); in custom rotations it distinguishes, for example, oat + maize (1 family) from oat + soybean (2). *A simple indicator: it does not measure organic matter or soil structure.*
+7. **Score** = Σ normalised weight × normalised value × 100. Normalisation is proportional to the group maximum: "lower is better" → 1 − (v − min)/max; "higher is better" → v/max. We chose this instead of min-max because min-max turned a 6 % difference in deficit into 0 versus 100 points. The scale is relative to the rotations being compared.
+
+## Calendars (agricultural year from 1 May), pending local validation
+
+| Rotation | Crops and window |
 |---|---|
-| A (base) | Soja 11-oct → 10-feb; barbecho invernal |
-| B | Trigo 21-may → 10-oct; Soja 11-oct → 10-feb |
-| C | Avena negra 1-may → 31-ago; Soja 11-oct → 10-feb |
-| D | Soja temprana 11-sep → 10-ene; Maíz zafriña 11-ene → 30-abr |
+| A (baseline) | Soybean 11 Oct → 10 Feb; winter fallow |
+| B | Wheat 21 May → 10 Oct; soybean 11 Oct → 10 Feb |
+| C | Black oat 1 May → 31 Aug; soybean 11 Oct → 10 Feb |
+| D | Early soybean 11 Sep → 10 Jan; second-crop maize 11 Jan → 30 Apr |
 
-## Pruebas (`node --test tests/engine.test.js`) — 19/19 pasan (14-nov-2026)
-ET0 con valor calculado a mano; dekadas/año agrícola; agregación con -999; curva Kc; superposición de calendarios; indicadores con clima sintético **marcado como TEST**; los pesos cambian el orden; escenarios mediana/p80/año; plausibilidad de los datos reales; 2021–22 peor que la mediana; balance con suelo (capacidad, arrastre de agua, efecto de la cobertura sobre la soja); serie continua con datos reales.
+## Tests
 
-## Resultado observado (datos reales, pesos por defecto 3/2/2/3/2/2; recalculado el 14-nov con el indicador de diversidad)
-Suelo arcilloso. Itapúa: año típico → C (avena negra) 91,4, B 85,3, D 82,4, A (base) 74,1; año desfavorable y campaña 2021–22 → D primera (96,4 en 2021–22) porque la soja temprana evita parte del calor en floración (27 vs 38 días). Alto Paraná: mismo patrón (C en año típico, D en 2021–22). **Es una hipótesis exploratoria, no una recomendación**: depende del calendario supuesto.
+`node --test tests/engine.test.js` covers: ET0 against a hand-calculated value; 10-day periods and agricultural years; aggregation with −999 values; the Kc curve; overlapping calendars; indicators with synthetic climate **marked as TEST**; weights changing the order; median, 1-in-5 and single-season scenarios; plausibility of the real data; 2021–22 worse than the median; the soil water balance (capacity, carry-over, effect of the cover crop on soybean); a continuous series with real data. `tests/validation.test.js` checks the external validation figures.
 
-## Campaña por campaña (`seasonWins`)
-Con suelo arcilloso y pesos por defecto, en las 25 campañas de Itapúa: D queda primera en 12, B en 7, C en 6, A (base) en 0. C supera a la base en 25 de 25, B en 24, D en 23. Alto Paraná: B 10, D 10, C 5. El indicador de diversidad no cambió quién queda primera en ninguna campaña (suma lo mismo a B, C y D); sí cambió los puntajes y cuántas veces se supera a la base. Solo con las tres dimensiones climáticas (pesos 3/2/2/0/0/0), la base queda primera en 17 de 25 campañas y D en 8, en las dos zonas.
+## Observed result (real data, default weights 3/2/2/3/2/2, recalculated on 14 Nov with the diversity indicator)
 
-**Lectura honesta:** la base (barbecho) pierde en "suelo cubierto" y en "cosechas" por construcción, así que con pesos que valoren esas dimensiones casi nunca gana. Lo informativo es *cuál* alternativa gana según el año y las prioridades. Si el productor pone esos dos pesos en 0, la base vuelve a competir.
+Clay soil. Itapúa: typical year → C (black oat) 91.4, B 85.3, D 82.4, A (baseline) 74.1. Bad year and the 2021–22 season → D first (96.4 in 2021–22), because early soybean avoids part of the heat at flowering (27 vs 38 days). Alto Paraná: same pattern (C in a typical year, D in 2021–22). **This is an exploratory hypothesis, not a recommendation**: it depends on the assumed calendar.
 
-## Control de coherencia con GWETROOT (`soilCoherence`, 14-nov)
-Fracción de agua del balde (S / CAD) frente a `GWETROOT` de POWER, en las dekadas con soja de la rotación A, suelo arcilloso, 25 campañas (300 dekadas): r = 0,61 en Itapúa y 0,58 en Alto Paraná. **No es validación independiente**: las dos series parten de la misma lluvia de MERRA-2, y miden cosas distintas (agua disponible para la planta frente a humedad relativa a la saturación).
-En 2021–22 (Itapúa) el balde va de 89 % a 0 % y queda vacío desde mediados de diciembre; `GWETROOT` va de 70 % a 61 %. El balde simple reacciona mucho más fuerte, así que el déficit en años secos (348 mm en 2021–22) puede estar exagerado. Causas posibles a revisar: CAD de 160 mm con 1 m de raíces, sin ascenso capilar ni reducción de la transpiración bajo estrés (FAO-56 usa un coeficiente Ks que aquí no se aplica).
+## Season by season (`seasonWins`)
 
-## El Niño / La Niña (`ensoPhase`, `app/data/enso_oni.js`, 14-nov)
-Índice ONI de NOAA CPC (https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt, leído el 14-nov-2026). **No es dato NASA**; solo agrupa campañas y no entra en el puntaje. Fase de la campaña = ONI del trimestre nov–ene: El Niño si ≥ +0,5; La Niña si ≤ −0,5. *Supuesto simple*: NOAA exige cinco trimestres seguidos. Resultado: 10 campañas La Niña, 6 neutras, 9 El Niño.
-Lluvia del ciclo de la soja (rotación A), mediana y rango. Itapúa: La Niña 614 mm (369–902), neutro 631 (402–789), El Niño 848 (637–1141); lluvia menor que la demanda en 6/10, 3/6 y 1/9. Alto Paraná: La Niña 623 (408–988), neutro 579 (466–797), El Niño 738 (611–1000); 5/10, 3/6 y 0/9. Correlación ONI–lluvia: r = 0,62 (Itapúa) y 0,43 (Alto Paraná), con n = 25. Los rangos se superponen: la fase cambia las probabilidades, no determina la campaña. Los escenarios "Campañas con La Niña / El Niño" usan la mediana de cada indicador dentro del grupo. Último ONI publicado al leer: ago–oct 2026 = +2,46.
+With clay soil and default weights, over the 25 seasons of Itapúa: D ranks first in 12, B in 7, C in 6, A (baseline) in 0. C beats the baseline in 25 of 25, B in 24, D in 23. Alto Paraná: B 10, D 10, C 5. The diversity indicator did not change which rotation ranks first in any season (it adds the same to B, C and D); it did change the scores and how often the baseline is beaten. With only the three climate dimensions (weights 3/2/2/0/0/0), the baseline ranks first in 17 of 25 seasons and D in 8, in both areas.
 
-## Lluvia hipotética (`scaleRain`, 14-nov)
-Multiplica la lluvia de cada dekada por un factor (0,7 a 1,3) sobre una copia de la serie; los datos observados no se modifican. ET0, días de calor y heladas no cambian. **Es una simulación, no un dato ni un pronóstico**, y la app lo marca en cada sección. No representa un cambio climático realista: un año más seco suele ser también más caluroso, y aquí la temperatura queda igual. Itapúa, pesos por defecto, suelo arcilloso, con −20 %: D primera en 10 de 25 campañas, B en 8, C en 7 (observado: 12, 7, 6).
+**Honest reading:** the baseline (fallow) loses on "covered soil" and "harvests" by construction, so with weights that value those dimensions it almost never wins. What is informative is *which* alternative wins depending on the year and the priorities. If the farmer sets those two weights to 0, the baseline competes again. The app makes this visible with the NASA lens.
 
-## Limitaciones del productor
-Las rotaciones que contienen un cultivo marcado como no disponible salen de la comparación. Como el puntaje es relativo al grupo comparado, los puntajes de las restantes cambian. La base nunca se quita.
+## Consistency check with GWETROOT (`soilCoherence`, 14 Nov)
 
-## Pendiente
-- Suelo real de la zona (mapa de suelos de la Región Oriental) en lugar de clases genéricas; profundidad de raíces por cultivo.
-- Contraste con IMERG y una estación local.
-- Revisión de umbrales y calendarios por un agrónomo.
+Bucket water fraction (S / TAW) against POWER `GWETROOT`, in the soybean periods of rotation A, clay soil, 25 seasons (300 periods): r = 0.61 in Itapúa and 0.58 in Alto Paraná. **This is not independent validation**: both series start from the same MERRA-2 rainfall, and they measure different things (water available to the plant versus wetness relative to saturation).
+
+In 2021–22 (Itapúa) the bucket goes from 89 % to 0 % and stays empty from mid-December; `GWETROOT` goes from 70 % to 61 %. The simple bucket reacts much more strongly, so the deficit in dry years (348 mm in 2021–22) may be overstated. Possible causes to review: TAW of 160 mm with 1 m of roots, no capillary rise and no reduction of transpiration under stress (FAO-56 uses a Ks coefficient that is not applied here).
+
+## El Niño and La Niña (`ensoPhase`, `app/data/enso_oni.js`, 14 Nov)
+
+NOAA CPC Oceanic Niño Index (https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt, read on 14 Nov 2026). **It is not NASA data**; it only groups seasons and is not part of the score. Season phase = ONI of the November–January quarter: El Niño if ≥ +0.5; La Niña if ≤ −0.5. *Simple assumption*: NOAA requires five consecutive quarters. Result: 10 La Niña seasons, 6 neutral, 9 El Niño.
+
+Rain during the soybean cycle (rotation A), median and range. Itapúa: La Niña 614 mm (369–902), neutral 631 (402–789), El Niño 848 (637–1141); rain below demand in 6/10, 3/6 and 1/9. Alto Paraná: La Niña 623 (408–988), neutral 579 (466–797), El Niño 738 (611–1000); 5/10, 3/6 and 0/9. ONI–rain correlation: r = 0.62 (Itapúa) and 0.43 (Alto Paraná), n = 25. The ranges overlap: the phase shifts the odds, it does not decide the season. The "La Niña / El Niño seasons" scenarios use the median of each indicator within the group. Latest ONI published when read: Aug–Oct 2026 = +2.46.
+
+## Hypothetical rainfall (`scaleRain`, 14 Nov)
+
+Multiplies the rain of each 10-day period by a factor (0.7 to 1.3) on a copy of the series; the observed data are not changed. ET0, heat days and frost days do not change. **It is a simulation, not data or a forecast**, and the app labels it in every section. It is not a realistic climate change: a drier year is usually also hotter, and here temperature stays the same. Itapúa, default weights, clay soil, with −20 %: D first in 10 of 25 seasons, B in 8, C in 7 (observed: 12, 7, 6).
+
+## Farmer constraints
+
+Rotations that include a crop marked as unavailable leave the comparison. Because the score is relative to the group being compared, the scores of the remaining rotations change. The baseline is never removed.
+
+## Pending
+
+- Real soil for each area (soil map of the Eastern Region) instead of generic classes; root depth per crop.
+- Cross-check with IMERG and a local weather station.
+- Review of thresholds and calendars by an agronomist.

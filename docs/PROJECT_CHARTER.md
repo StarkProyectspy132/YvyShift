@@ -1,28 +1,32 @@
-# Project Charter — Rotation Lab
+# Project charter · YvyShift
 
-**Reto:** Field Shift: Adapting Farms with NASA Data (NASA Space Apps 2026). **Sede:** Asunción (virtual). **Cierre:** dom 15-nov-2026 23:59 hora local; objetivo interno de entrega 22:00.
+**Challenge:** Field Shift: Adapting Farms with NASA Data (NASA Space Apps 2026). **Local event:** Asunción, Paraguay (virtual). **Deadline:** Sunday 15 Nov 2026, 23:59 local time.
 
-> Nota: la página oficial del reto no pudo abrirse desde el entorno de Claude (bloqueo de robots). Un integrante debe copiar el texto y la pestaña **Resources** a `docs/CHALLENGE_TEXT.md` y confirmar que NASA POWER figura entre los recursos (ver TASK_BOARD T-01).
+## Problem
 
-## Problema
-En el este de Paraguay (Itapúa, Alto Paraná) la soja domina el verano y el invierno muchas veces queda en barbecho. Campañas como 2021–22 mostraron que un año seco y caluroso golpea fuerte a la soja. El productor elige qué hacer en invierno y cuándo sembrar sin una forma simple de ver cómo se comportó cada rotación en los años buenos y malos de su zona.
+In eastern Paraguay (Itapúa, Alto Paraná) soybean dominates the summer and the field is often left fallow in winter. Seasons such as 2021–22 showed that a dry, hot year hits soybean hard. Farmers decide what to do in winter and when to sow without a simple way to see how each rotation behaved in the good and bad years of their own area.
 
-## Usuario
-Productor mediano de granos o técnico de extensión / cooperativa en Itapúa o Alto Paraná, con celular y conexión irregular.
+## User
 
-## Decisión que apoya
-"¿Sigo con soja + barbecho, o paso a soja + trigo, soja + avena negra, o soja temprana + maíz zafriña?" según lo que más le importa: agua, calor, heladas, suelo cubierto, número de cosechas.
+A mid-sized grain farmer, or an extension or cooperative technician, in Itapúa or Alto Paraná, with a phone and an unreliable connection.
 
-## Producto (MVP)
-Web app estática, ES/EN, que:
-1. Carga 25 campañas de datos diarios NASA POWER de su zona (caché o descarga en vivo).
-2. Calcula para 4 rotaciones: déficit hídrico (balance con tipo de suelo), calor en floración, heladas en etapa sensible, % de suelo cubierto, cosechas/año.
-3. Permite elegir escenario (año típico, año malo, campaña concreta) y pesos.
-4. Ordena las rotaciones, muestra la contribución de cada dimensión y explica el porqué.
-5. Muestra la evidencia NASA y un panel de confianza ("exploratorio") con datos faltantes.
+## Decision it supports
 
-## Promesa verificable
-"En menos de un minuto, un productor ve cómo se habrían comportado 4 rotaciones en las últimas 25 campañas de su zona con datos NASA, y qué cambia si prioriza agua o suelo cubierto."
+"Do I stay with soybean + fallow, or move to soybean + wheat, soybean + black oat, or early soybean + second-crop maize?", depending on what matters most to the farmer: water, heat, frost, soil cover, number of harvests.
 
-## Fuera de alcance
-Recomendación agronómica certificada, rendimiento en kg/ha, precios/ingresos, precisión por parcela.
+## Product
+
+A static web app that:
+1. Loads 25 seasons of daily NASA POWER data for the area (from the cache or downloaded live).
+2. Calculates, for 4 rotations: water deficit (soil water balance by soil type), heat at flowering, frost at the sensitive stage, share of the year with covered soil, harvests per year and crop diversity.
+3. Lets the user choose a scenario (typical year, bad year, one season, El Niño or La Niña) and weights.
+4. Ranks the rotations, shows what each dimension contributes and explains why.
+5. Shows the NASA evidence and a confidence panel ("exploratory") with the missing data.
+
+## Verifiable promise
+
+"In under a minute, a farmer sees how 4 rotations would have behaved over the last 25 seasons of their area with NASA data, and what changes if they prioritise water or soil cover."
+
+## Out of scope
+
+Certified agronomic recommendations, yield in kg/ha, prices or income, field-level precision.

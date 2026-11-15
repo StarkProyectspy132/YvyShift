@@ -1,51 +1,56 @@
-# Datos NASA y científicos
+# NASA and scientific data
 
-## En uso (verificado: descarga real 14-nov-2026 17:45 UTC)
+## In use (verified with a real download on 14 Nov 2026, 17:45 UTC)
 
-| Campo | NASA POWER Daily API |
+| Field | NASA POWER Daily API |
 |---|---|
-| Fuente | NASA LaRC POWER Project, https://power.larc.nasa.gov/ — API `v2.10.3` "POWER Daily API" |
-| Elegibilidad | ✅ Figura en la pestaña Resources del reto ("NASA POWER: Agroclimatology & Meteorological Data"), confirmado por Miguel el 14-nov. |
-| Variables | `PRECTOTCORR` precipitación corregida (mm/día); `T2M`, `T2M_MAX`, `T2M_MIN` temperatura a 2 m (°C); `TOA_SW_DWN` radiación en el tope de la atmósfera (MJ/m²/día); `GWETROOT` humedad relativa de zona radicular (0–1) |
-| Fuentes internas | MERRA-2, GEOS-IT, CERES SYN1deg, FLASHFlux (según encabezado de la respuesta) |
-| Tipo de dato | Reanálisis/modelo + productos satelitales; **no** estación ni observación de parcela |
-| Resolución | Meteorología ~0,5° × 0,625° (MERRA-2); diaria; tiempo estándar local (LST) |
-| Periodo usado | 2001-05-01 → 2026-10-31 (25 campañas completas, 2001–02 a 2025–26) |
-| Puntos | Itapúa -27.08, -55.65 (elev. 187 m); Alto Paraná -25.79, -55.09 (elev. 257 m) |
-| Método | API REST pública sin clave; agregación a dekadas (10 días) por año agrícola mayo–abril |
-| Calidad | Valor de relleno -999 → la dekada se marca incompleta y la campaña no se usa |
-| Uso en la app | ET0, demanda de cultivo, déficit, días de calor y helada; gráfico de evidencia |
-| Cita UI | "Datos: NASA Langley Research Center POWER Project" |
+| Source | NASA LaRC POWER Project, https://power.larc.nasa.gov/ (API v2.10.3, "POWER Daily API") |
+| Eligibility | Listed in the challenge Resources tab ("NASA POWER: Agroclimatology & Meteorological Data") |
+| Variables | `PRECTOTCORR` corrected precipitation (mm/day); `T2M`, `T2M_MAX`, `T2M_MIN` air temperature at 2 m (°C); `TOA_SW_DWN` top-of-atmosphere radiation (MJ/m²/day); `GWETROOT` root-zone soil wetness (0–1) |
+| Internal sources | MERRA-2, GEOS-IT, CERES SYN1deg, FLASHFlux (from the response header) |
+| Data type | Reanalysis/model plus satellite products; **not** a station or a field observation |
+| Resolution | Meteorology about 0.5° × 0.625° (MERRA-2); daily; local standard time |
+| Period used | 1 May 2001 → 31 Oct 2026 (25 complete seasons, 2001–02 to 2025–26) |
+| Points | Eight soybean areas of Paraguay stored offline (for example Itapúa −27.08, −55.65; Alto Paraná −25.79, −55.09); any other point downloaded live |
+| Method | Public REST API with no key; aggregated into 10-day periods per agricultural year (May–April) |
+| Quality | Fill value −999 → the 10-day period is marked incomplete and that season is not used |
+| Use in the app | ET0, crop demand, deficit, heat and frost days, root-zone moisture, charts |
+| Credit in the app | "Data: NASA Langley Research Center POWER Project" |
 
-## Verificación de plausibilidad (Itapúa)
-Lluvia anual 1.248–2.566 mm y ET0 1.211–1.604 mm. La campaña 2021–22 tiene la ET0 más alta (1.604 mm) y la mayor cantidad de días ≥ 35 °C (76) de la serie, coherente con la sequía registrada esa campaña. **Pendiente:** contrastar con una fuente independiente (estación DMH o informe MAG) — T-06.
+## Plausibility check (Itapúa)
 
-## En uso como evidencia visual: MODIS NDVI (Resources: "Landsat and MODIS/VIIRS")
-| Campo | Valor |
+Annual rain 1,248–2,566 mm and ET0 1,211–1,604 mm. The 2021–22 season has the highest ET0 (1,604 mm) and the most days ≥ 35 °C (76) of the series, consistent with the drought recorded that season. The independent checks are in `EXTERNAL_VALIDATION.md` and `SATELLITE_VALIDATION_MODIS.md`.
+
+## MODIS NDVI (Resources: "Landsat and MODIS/VIIRS")
+
+| Field | Value |
 |---|---|
-| Producto | MODIS/Terra Vegetation Indices 16-Day L3 (MOD13), capa GIBS `MODIS_Terra_L3_NDVI_16Day` |
-| Acceso | NASA GIBS WMS (Worldview), sin login: `https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi` |
-| Fechas | Compuestos que empiezan el 2022-01-01 (sequía) y 2024-01-01 (campaña lluviosa) |
-| Área | 28°S–24,5°S, 57°O–54°O, 600×700 px (imagen renderizada, no valores numéricos) |
-| Uso | Contexto visual en la app; **no entra en el puntaje** |
-| Archivos | `app/data/img/modis_ndvi_2022-01-01.jpg`, `modis_ndvi_2024-01-01.jpg` (descargados 14-nov-2026) |
+| Product | MODIS/Terra Vegetation Indices 16-Day (MOD13Q1, 250 m) |
+| Images | NASA GIBS WMS (Worldview), no login, layer `MODIS_Terra_L3_NDVI_16Day`: composites starting 1 Jan 2022 (drought) and 1 Jan 2024 (wet season) |
+| Numeric values | ORNL DAAC MODIS web service: January NDVI for 25 seasons in Itapúa and Alto Paraná, used to validate the model (see `SATELLITE_VALIDATION_MODIS.md`) |
+| Use | Visual context and validation; **not part of the score** |
 
-Intento fallido: la API de subconjuntos MODIS de ORNL DAAC (valores NDVI por punto) no respondió en 40 s desde la computadora del equipo; se descartó para no arriesgar la demo.
+## Other NASA layers
 
-## Candidatos (Claude B)
-| Producto | Para qué | Advertencia |
+- **HLS** (Harmonized Landsat and Sentinel-2, 30 m) true colour through NASA GIBS: field view comparing two dates. Visual only.
+- **Blue Marble** through NASA GIBS: base layer of the world map. Visual only.
+
+## Candidates for after the event
+
+| Product | Purpose | Caveat |
 |---|---|---|
-| SMAP L3/L4 humedad de suelo | Evidencia satelital de sequedad del suelo en 2021–22 vs mediana | 9–36 km; profundidad 0–5 cm (L3) o zona radicular modelada (L4) |
-| GPM IMERG | Contrastar la lluvia de POWER (en Resources) | 0,1°; requiere cuenta Earthdata (gratis) |
-| SRTM | Pendiente del terreno → riesgo de erosión en barbecho (en Resources) | 30 m; requiere Earthdata u OpenTopography |
-| GLDAS | Humedad de suelo modelada para el balance (en Resources) | 0,25°; Earthdata |
-| FAO GAEZ | Aptitud de cultivos y restricciones de suelo en Paraguay (en Resources, global) | 5 arc-min |
-| MODIS NDVI (MOD13Q1) | Mostrar el efecto de la sequía en la vegetación | 250 m, 16 días, nubes |
+| SMAP L3/L4 soil moisture | Satellite evidence of dry soil in 2021–22 against the median | 9–36 km; 0–5 cm depth (L3) or modelled root zone (L4); needs Earthdata |
+| GPM IMERG | Cross-check POWER rainfall | 0.1°; needs a free Earthdata account |
+| SRTM | Terrain slope → erosion risk in fallow | 30 m; Earthdata or OpenTopography |
+| GLDAS | Modelled soil moisture for the water balance | 0.25°; Earthdata |
+| FAO GAEZ | Crop suitability and soil constraints in Paraguay | 5 arc-minutes |
 
-## Fuentes locales a buscar (Compañero 1)
-MAG (calendario agrícola), IPTA (trigo, soja, cobertura), CAPECO (superficie y fechas de siembra), mapas de suelo (Reconocimiento de suelos de la Región Oriental).
+## Local sources to add
 
-## Referencias
-- Allen, R.G., Pereira, L.S., Raes, D., Smith, M. (1998). *Crop evapotranspiration*. FAO Irrigation and Drainage Paper 56. Roma: FAO. (Ec. 52 Hargreaves; Tabla 12 Kc).
+Paraguay's Ministry of Agriculture (MAG) crop calendar, IPTA (wheat, soybean, cover crops), CAPECO (area and sowing dates), soil maps of the Eastern Region.
+
+## References
+
+- Allen, R.G., Pereira, L.S., Raes, D., Smith, M. (1998). *Crop evapotranspiration*. FAO Irrigation and Drainage Paper 56. Rome: FAO. (Eq. 52 Hargreaves; Table 12 Kc.)
 - Hargreaves, G.H., Samani, Z.A. (1985). Reference crop evapotranspiration from temperature. *Applied Engineering in Agriculture*, 1(2), 96–99.
 - NASA POWER Project. https://power.larc.nasa.gov/docs/
