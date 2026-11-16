@@ -10,7 +10,7 @@ Earlier working names were TERRA-SHIFT and Rotation Lab. "Rotation Lab" is now o
 
 ## Links
 
-- Live app: [published HTTPS address, added by the team]
+- Live app: https://yvyshift.web.app
 - Source code: https://github.com/StarkProyectspy132/YvyShift
 - Project description for the judges: [`docs/PROJECT_PAGE_EN.md`](docs/PROJECT_PAGE_EN.md)
 

@@ -26,7 +26,7 @@ YvyShift is a free web app that lets farmers and extension technicians compare c
 
 ### Link to Final Project
 
-- Live app: [TODO: full public HTTPS address of the published site]
+- Live app: https://yvyshift.web.app
 - Source code: https://github.com/StarkProyectspy132/YvyShift
 
 ---
